@@ -1,0 +1,17 @@
+JDBC_PARAMS: useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowMultiQueries=true
+server:
+  port: 8868
+spring:
+  datasource:
+    url: ${SQLITE_URL:jdbc:sqlite:file:./attachments/igrow-copilot.db}
+    username:
+    password:
+    driver-class-name: org.sqlite.JDBC
+  servlet:
+    multipart:
+      max-file-size: 1MB # 单个文件最大3MB
+      max-request-size: 3MB # 请求最大10MB
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml,classpath:dororomapper/*Mapper.xml
+  type-aliases-package: com.zhien.igrow.domain,com.dororo.future.igrowcopilot.domain
+

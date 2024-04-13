@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="IgrowCopilotApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+        <envs>
+            <env name="TEST_DEV_ING" value="TRUE"/>
+        </envs>
+        <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources"/>
+        <module name="igrow-copilot"/>
+        <option name="SPRING_BOOT_MAIN_CLASS" value="com.dororo.future.igrowcopilot.IgrowCopilotApp"/>
+        <method v="2">
+            <option name="Make" enabled="true"/>
+        </method>
+    </configuration>
+</component>

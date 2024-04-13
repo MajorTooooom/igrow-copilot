@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dororo.future.igrowcopilot.mapper.GenSysUserMapper">
+    <resultMap id="BaseResultMap" type="com.dororo.future.igrowcopilot.domain.GenSysUser">
+        <!--@mbg.generated-->
+        <!--@Table t_gen_sys_user-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="LONGVARCHAR" property="name"/>
+        <result column="password" jdbcType="LONGVARCHAR" property="password"/>
+        <result column="is_deleted" jdbcType="LONGVARCHAR" property="isDeleted"/>
+        <result column="create_time" jdbcType="LONGVARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="LONGVARCHAR" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, "name", "password", is_deleted, create_time, update_time
+    </sql>
+    <select id="getLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ROWID()
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_gen_sys_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from t_gen_sys_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.GenSysUser" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_gen_sys_user ("name", "password", is_deleted,
+        create_time, update_time)
+        values (#{name,jdbcType=LONGVARCHAR}, #{password,jdbcType=LONGVARCHAR}, #{isDeleted,jdbcType=LONGVARCHAR},
+        #{createTime,jdbcType=LONGVARCHAR}, #{updateTime,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.GenSysUser" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_gen_sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                "name",
+            </if>
+            <if test="password != null">
+                "password",
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dororo.future.igrowcopilot.domain.GenSysUser">
+        <!--@mbg.generated-->
+        update t_gen_sys_user
+        <set>
+            <if test="name != null">
+                "name" = #{name,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="password != null">
+                "password" = #{password,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dororo.future.igrowcopilot.domain.GenSysUser">
+        <!--@mbg.generated-->
+        update t_gen_sys_user
+        set "name" = #{name,jdbcType=LONGVARCHAR},
+        "password" = #{password,jdbcType=LONGVARCHAR},
+        is_deleted = #{isDeleted,jdbcType=LONGVARCHAR},
+        create_time = #{createTime,jdbcType=LONGVARCHAR},
+        update_time = #{updateTime,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
