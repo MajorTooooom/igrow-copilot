@@ -1,4 +1,4 @@
- spring:
+spring:
   datasource:
     druid:
       initialSize: 2  # 初始连接数

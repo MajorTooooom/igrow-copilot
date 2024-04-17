@@ -1,30 +1,31 @@
-package com.zhien.common.core.domain;
+package com.dororo.future.igrowcopilot.domain.common;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.Entity;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
  * 存储列的元数据信息
+ *
+ * <p>information_schema.`COLUMNS`</p>
  */
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@ApiModel(value = "列元数据信息", description = "列元数据信息")
 public class ColumnMetadata {
-    /**
-     * 主键ID
-     */
-    private Integer id;
-
     /**
      * 表所属的目录名称，通常为def
      */
@@ -140,9 +141,11 @@ public class ColumnMetadata {
      */
     private Integer srsId;
 
+
     // ===========================================================================================================
-    public static ColumnMetadata specialConvert(Entity entity) {
-        ColumnMetadata resultVo = ColumnMetadata.builder().build();
+    @SneakyThrows
+    public static <T extends ColumnMetadata> T specialConvert(Entity entity, Class<T> clazz) {
+        T resultVo = clazz.getDeclaredConstructor().newInstance();
         for (Map.Entry<String, Object> et : entity.entrySet()) {
             // 字段名转小写驼峰
             String camelCase = StrUtil.toCamelCase(et.getKey().toLowerCase());

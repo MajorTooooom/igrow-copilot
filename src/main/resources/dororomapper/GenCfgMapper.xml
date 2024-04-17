@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dororo.future.igrowcopilot.mapper.GenCfgMapper">
+    <resultMap id="BaseResultMap" type="com.dororo.future.igrowcopilot.domain.GenCfg">
+        <!--@mbg.generated-->
+        <!--@Table t_gen_cfg-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="gen_cfg_name" jdbcType="LONGVARCHAR" property="genCfgName"/>
+        <result column="source_code_abs_path" jdbcType="LONGVARCHAR" property="sourceCodeAbsPath"/>
+        <result column="domain_package" jdbcType="LONGVARCHAR" property="domainPackage"/>
+        <result column="dto_package" jdbcType="LONGVARCHAR" property="dtoPackage"/>
+        <result column="mapper_package" jdbcType="LONGVARCHAR" property="mapperPackage"/>
+        <result column="service_package" jdbcType="LONGVARCHAR" property="servicePackage"/>
+        <result column="controller_package" jdbcType="LONGVARCHAR" property="controllerPackage"/>
+        <result column="easy_excel_listener_package" jdbcType="LONGVARCHAR" property="easyExcelListenerPackage"/>
+        <result column="resource_abs_path" jdbcType="LONGVARCHAR" property="resourceAbsPath"/>
+        <result column="mapper_xml_path" jdbcType="LONGVARCHAR" property="mapperXmlPath"/>
+        <result column="is_extend_tk_mapper" jdbcType="LONGVARCHAR" property="isExtendTkMapper"/>
+        <result column="tk_mapper_package" jdbcType="LONGVARCHAR" property="tkMapperPackage"/>
+        <result column="is_gen_swagger" jdbcType="LONGVARCHAR" property="isGenSwagger"/>
+        <result column="is_gen_comment" jdbcType="LONGVARCHAR" property="isGenComment"/>
+        <result column="is_gen_easy_excel" jdbcType="LONGVARCHAR" property="isGenEasyExcel"/>
+        <result column="is_gen_javax_validation" jdbcType="LONGVARCHAR" property="isGenJavaxValidation"/>
+        <result column="create_time" jdbcType="LONGVARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="LONGVARCHAR" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        user_id,
+        gen_cfg_name,
+        source_code_abs_path,
+        domain_package,
+        dto_package,
+        mapper_package,
+        service_package,
+        controller_package,
+        easy_excel_listener_package,
+        resource_abs_path,
+        mapper_xml_path,
+        is_extend_tk_mapper,
+        tk_mapper_package,
+        is_gen_swagger,
+        is_gen_comment,
+        is_gen_easy_excel,
+        is_gen_javax_validation,
+        create_time,
+        update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_gen_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete
+        from t_gen_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.GenCfg" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_gen_cfg (user_id, gen_cfg_name, source_code_abs_path,
+                               domain_package, dto_package, mapper_package,
+                               service_package, controller_package,
+                               easy_excel_listener_package, resource_abs_path,
+                               mapper_xml_path, is_extend_tk_mapper,
+                               tk_mapper_package, is_gen_swagger,
+                               is_gen_comment, is_gen_easy_excel, is_gen_javax_validation,
+                               create_time, update_time)
+        values (#{userId,jdbcType=INTEGER}, #{genCfgName,jdbcType=LONGVARCHAR}, #{sourceCodeAbsPath,jdbcType=LONGVARCHAR},
+                #{domainPackage,jdbcType=LONGVARCHAR}, #{dtoPackage,jdbcType=LONGVARCHAR}, #{mapperPackage,jdbcType=LONGVARCHAR},
+                #{servicePackage,jdbcType=LONGVARCHAR}, #{controllerPackage,jdbcType=LONGVARCHAR},
+                #{easyExcelListenerPackage,jdbcType=LONGVARCHAR}, #{resourceAbsPath,jdbcType=LONGVARCHAR},
+                #{mapperXmlPath,jdbcType=LONGVARCHAR}, #{isExtendTkMapper,jdbcType=LONGVARCHAR},
+                #{tkMapperPackage,jdbcType=LONGVARCHAR}, #{isGenSwagger,jdbcType=LONGVARCHAR},
+                #{isGenComment,jdbcType=LONGVARCHAR}, #{isGenEasyExcel,jdbcType=LONGVARCHAR}, #{isGenJavaxValidation,jdbcType=LONGVARCHAR},
+                #{createTime,jdbcType=LONGVARCHAR}, #{updateTime,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.GenCfg" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_gen_cfg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="genCfgName != null">
+                gen_cfg_name,
+            </if>
+            <if test="sourceCodeAbsPath != null">
+                source_code_abs_path,
+            </if>
+            <if test="domainPackage != null">
+                domain_package,
+            </if>
+            <if test="dtoPackage != null">
+                dto_package,
+            </if>
+            <if test="mapperPackage != null">
+                mapper_package,
+            </if>
+            <if test="servicePackage != null">
+                service_package,
+            </if>
+            <if test="controllerPackage != null">
+                controller_package,
+            </if>
+            <if test="easyExcelListenerPackage != null">
+                easy_excel_listener_package,
+            </if>
+            <if test="resourceAbsPath != null">
+                resource_abs_path,
+            </if>
+            <if test="mapperXmlPath != null">
+                mapper_xml_path,
+            </if>
+            <if test="isExtendTkMapper != null">
+                is_extend_tk_mapper,
+            </if>
+            <if test="tkMapperPackage != null">
+                tk_mapper_package,
+            </if>
+            <if test="isGenSwagger != null">
+                is_gen_swagger,
+            </if>
+            <if test="isGenComment != null">
+                is_gen_comment,
+            </if>
+            <if test="isGenEasyExcel != null">
+                is_gen_easy_excel,
+            </if>
+            <if test="isGenJavaxValidation != null">
+                is_gen_javax_validation,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="genCfgName != null">
+                #{genCfgName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sourceCodeAbsPath != null">
+                #{sourceCodeAbsPath,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="domainPackage != null">
+                #{domainPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="dtoPackage != null">
+                #{dtoPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="mapperPackage != null">
+                #{mapperPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="servicePackage != null">
+                #{servicePackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="controllerPackage != null">
+                #{controllerPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="easyExcelListenerPackage != null">
+                #{easyExcelListenerPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="resourceAbsPath != null">
+                #{resourceAbsPath,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="mapperXmlPath != null">
+                #{mapperXmlPath,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isExtendTkMapper != null">
+                #{isExtendTkMapper,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tkMapperPackage != null">
+                #{tkMapperPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenSwagger != null">
+                #{isGenSwagger,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenComment != null">
+                #{isGenComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenEasyExcel != null">
+                #{isGenEasyExcel,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenJavaxValidation != null">
+                #{isGenJavaxValidation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dororo.future.igrowcopilot.domain.GenCfg">
+        <!--@mbg.generated-->
+        update t_gen_cfg
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="genCfgName != null">
+                gen_cfg_name = #{genCfgName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sourceCodeAbsPath != null">
+                source_code_abs_path = #{sourceCodeAbsPath,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="domainPackage != null">
+                domain_package = #{domainPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="dtoPackage != null">
+                dto_package = #{dtoPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="mapperPackage != null">
+                mapper_package = #{mapperPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="servicePackage != null">
+                service_package = #{servicePackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="controllerPackage != null">
+                controller_package = #{controllerPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="easyExcelListenerPackage != null">
+                easy_excel_listener_package = #{easyExcelListenerPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="resourceAbsPath != null">
+                resource_abs_path = #{resourceAbsPath,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="mapperXmlPath != null">
+                mapper_xml_path = #{mapperXmlPath,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isExtendTkMapper != null">
+                is_extend_tk_mapper = #{isExtendTkMapper,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tkMapperPackage != null">
+                tk_mapper_package = #{tkMapperPackage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenSwagger != null">
+                is_gen_swagger = #{isGenSwagger,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenComment != null">
+                is_gen_comment = #{isGenComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenEasyExcel != null">
+                is_gen_easy_excel = #{isGenEasyExcel,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenJavaxValidation != null">
+                is_gen_javax_validation = #{isGenJavaxValidation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dororo.future.igrowcopilot.domain.GenCfg">
+        <!--@mbg.generated-->
+        update t_gen_cfg
+        set user_id                     = #{userId,jdbcType=INTEGER},
+            gen_cfg_name                = #{genCfgName,jdbcType=LONGVARCHAR},
+            source_code_abs_path        = #{sourceCodeAbsPath,jdbcType=LONGVARCHAR},
+            domain_package              = #{domainPackage,jdbcType=LONGVARCHAR},
+            dto_package                 = #{dtoPackage,jdbcType=LONGVARCHAR},
+            mapper_package              = #{mapperPackage,jdbcType=LONGVARCHAR},
+            service_package             = #{servicePackage,jdbcType=LONGVARCHAR},
+            controller_package          = #{controllerPackage,jdbcType=LONGVARCHAR},
+            easy_excel_listener_package = #{easyExcelListenerPackage,jdbcType=LONGVARCHAR},
+            resource_abs_path           = #{resourceAbsPath,jdbcType=LONGVARCHAR},
+            mapper_xml_path             = #{mapperXmlPath,jdbcType=LONGVARCHAR},
+            is_extend_tk_mapper         = #{isExtendTkMapper,jdbcType=LONGVARCHAR},
+            tk_mapper_package           = #{tkMapperPackage,jdbcType=LONGVARCHAR},
+            is_gen_swagger              = #{isGenSwagger,jdbcType=LONGVARCHAR},
+            is_gen_comment              = #{isGenComment,jdbcType=LONGVARCHAR},
+            is_gen_easy_excel           = #{isGenEasyExcel,jdbcType=LONGVARCHAR},
+            is_gen_javax_validation     = #{isGenJavaxValidation,jdbcType=LONGVARCHAR},
+            create_time                 = #{createTime,jdbcType=LONGVARCHAR},
+            update_time                 = #{updateTime,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="findOneByAll" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_gen_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="genCfgName != null">
+                and gen_cfg_name = #{genCfgName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="sourceCodeAbsPath != null">
+                and source_code_abs_path = #{sourceCodeAbsPath,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="domainPackage != null">
+                and domain_package = #{domainPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="dtoPackage != null">
+                and dto_package = #{dtoPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="mapperPackage != null">
+                and mapper_package = #{mapperPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="servicePackage != null">
+                and service_package = #{servicePackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="controllerPackage != null">
+                and controller_package = #{controllerPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="easyExcelListenerPackage != null">
+                and easy_excel_listener_package = #{easyExcelListenerPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="resourceAbsPath != null">
+                and resource_abs_path = #{resourceAbsPath,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="mapperXmlPath != null">
+                and mapper_xml_path = #{mapperXmlPath,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isExtendTkMapper != null">
+                and is_extend_tk_mapper = #{isExtendTkMapper,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tkMapperPackage != null">
+                and tk_mapper_package = #{tkMapperPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenSwagger != null">
+                and is_gen_swagger = #{isGenSwagger,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenComment != null">
+                and is_gen_comment = #{isGenComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenEasyExcel != null">
+                and is_gen_easy_excel = #{isGenEasyExcel,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenJavaxValidation != null">
+                and is_gen_javax_validation = #{isGenJavaxValidation,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="findByAll" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_gen_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="genCfgName != null">
+                and gen_cfg_name = #{genCfgName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="sourceCodeAbsPath != null">
+                and source_code_abs_path = #{sourceCodeAbsPath,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="domainPackage != null">
+                and domain_package = #{domainPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="dtoPackage != null">
+                and dto_package = #{dtoPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="mapperPackage != null">
+                and mapper_package = #{mapperPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="servicePackage != null">
+                and service_package = #{servicePackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="controllerPackage != null">
+                and controller_package = #{controllerPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="easyExcelListenerPackage != null">
+                and easy_excel_listener_package = #{easyExcelListenerPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="resourceAbsPath != null">
+                and resource_abs_path = #{resourceAbsPath,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="mapperXmlPath != null">
+                and mapper_xml_path = #{mapperXmlPath,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isExtendTkMapper != null">
+                and is_extend_tk_mapper = #{isExtendTkMapper,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tkMapperPackage != null">
+                and tk_mapper_package = #{tkMapperPackage,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenSwagger != null">
+                and is_gen_swagger = #{isGenSwagger,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenComment != null">
+                and is_gen_comment = #{isGenComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenEasyExcel != null">
+                and is_gen_easy_excel = #{isGenEasyExcel,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenJavaxValidation != null">
+                and is_gen_javax_validation = #{isGenJavaxValidation,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="getLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ROWID()
+    </select>
+</mapper>

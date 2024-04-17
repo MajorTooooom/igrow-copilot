@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>Home Page</h1>
-    <p>This is the home page.</p>
+    <h1>且随疾风前行丶</h1>
   </div>
 </template>
 

@@ -1,36 +1,44 @@
 <template>
   <div id="app">
-    <el-menu :default-active="activeIndex" class="el-menu-vertical-demo" @select="handleSelect">
-      <el-menu-item index="1">首页</el-menu-item>
-      <el-menu-item index="2">关于</el-menu-item>
-    </el-menu>
-    <router-view/>
+    <div v-if="loginInSuccess">
+      <AppAfterLoginInPage/>
+    </div>
+    <div v-else>
+      <AppLoginInPage/>
+    </div>
   </div>
 </template>
 
 <script>
+import AppLoginInPage from '@/views/AppLoginInPage';
+import AppAfterLoginInPage from '@/views/AppAfterLoginInPage.vue';
+import * as CommonConsts from '@/config/CommonConsts';
+import {FN_CHANGE_USER_ID, SESSION_USER_ID} from "@/config/CommonConsts";
+
 export default {
+  components: {
+    AppLoginInPage,
+    AppAfterLoginInPage,
+  },
   data() {
     return {
-      activeIndex: '1'
+      loginInSuccess: false,
     };
   },
-  methods: {
-    handleSelect(index, indexPath) {
-      let path = '/';
-      if (index === '2') {
-        path = '/about';
-      }
-      if (this.$route.path !== path) {
-        this.$router.push(path);
-      }
+  methods: {},
+  mounted() {
+    let userId = sessionStorage.getItem(CommonConsts.SESSION_USER_ID);
+    if (userId) {
+      this.loginInSuccess = true;
     }
+    this.$bus.$on(CommonConsts.FN_CHANGE_USER_ID, (data) => {
+      if (data) {
+        this.loginInSuccess = true;
+      }
+    });
   },
 };
 </script>
 
-<style>
-.el-menu-vertical-demo {
-  width: 200px;
-}
+<style scoped>
 </style>

@@ -1,4 +1,4 @@
-package com.zhien.common.exception;
+package com.dororo.future.igrowcopilot.exception;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;

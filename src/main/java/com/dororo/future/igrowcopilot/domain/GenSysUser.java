@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 public class GenSysUser {
     private Integer id;
 
-    private String name;
+    private String username;
 
     private String password;
 

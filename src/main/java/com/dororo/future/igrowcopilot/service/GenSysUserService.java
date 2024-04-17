@@ -1,5 +1,7 @@
 package com.dororo.future.igrowcopilot.service;
 
+import java.util.List;
+
 import com.dororo.future.igrowcopilot.domain.GenSysUser;
 import com.dororo.future.igrowcopilot.mapper.GenSysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,10 @@ public class GenSysUserService {
     public int updateByPrimaryKey(GenSysUser record) {
         return genSysUserMapper.updateByPrimaryKey(record);
     }
+
+    public List<GenSysUser> findByAll(GenSysUser genSysUser) {
+        return genSysUserMapper.findByAll(genSysUser);
+    }
+
 
 }

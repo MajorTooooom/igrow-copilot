@@ -11,7 +11,20 @@ spring:
     multipart:
       max-file-size: 1MB # 单个文件最大3MB
       max-request-size: 3MB # 请求最大10MB
+  cache:
+    type: caffeine
+    cache-names: tableCfgOptions
+    caffeine:
+      spec: maximumSize=100,expireAfterAccess=5m
 mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*Mapper.xml,classpath:dororomapper/*Mapper.xml
   type-aliases-package: com.zhien.igrow.domain,com.dororo.future.igrowcopilot.domain
+
+logging:
+  level:
+    org.apache.ibatis: DEBUG
+    org.mybatis.spring.SqlSessionFactoryBean: DEBUG
+
 

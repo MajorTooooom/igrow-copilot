@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dororo.future.igrowcopilot.mapper.ColumnCfgMapper">
+    <resultMap id="BaseResultMap" type="com.dororo.future.igrowcopilot.domain.ColumnCfg">
+        <!--@mbg.generated-->
+        <!--@Table t_column_cfg-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="table_cfg_id" jdbcType="INTEGER" property="tableCfgId"/>
+        <result column="table_schema" jdbcType="LONGVARCHAR" property="tableSchema"/>
+        <result column="table_name" jdbcType="LONGVARCHAR" property="tableName"/>
+        <result column="ordinal_position" jdbcType="LONGVARCHAR" property="ordinalPosition"/>
+        <result column="column_name" jdbcType="LONGVARCHAR" property="columnName"/>
+        <result column="column_type" jdbcType="LONGVARCHAR" property="columnType"/>
+        <result column="column_comment" jdbcType="LONGVARCHAR" property="columnComment"/>
+        <result column="data_type" jdbcType="LONGVARCHAR" property="dataType"/>
+        <result column="table_catalog" jdbcType="LONGVARCHAR" property="tableCatalog"/>
+        <result column="column_default" jdbcType="LONGVARCHAR" property="columnDefault"/>
+        <result column="is_nullable" jdbcType="LONGVARCHAR" property="isNullable"/>
+        <result column="character_maximum_length" jdbcType="LONGVARCHAR" property="characterMaximumLength"/>
+        <result column="character_octet_length" jdbcType="LONGVARCHAR" property="characterOctetLength"/>
+        <result column="numeric_precision" jdbcType="LONGVARCHAR" property="numericPrecision"/>
+        <result column="numeric_scale" jdbcType="LONGVARCHAR" property="numericScale"/>
+        <result column="datetime_precision" jdbcType="LONGVARCHAR" property="datetimePrecision"/>
+        <result column="character_set_name" jdbcType="LONGVARCHAR" property="characterSetName"/>
+        <result column="collation_name" jdbcType="LONGVARCHAR" property="collationName"/>
+        <result column="column_key" jdbcType="LONGVARCHAR" property="columnKey"/>
+        <result column="extra" jdbcType="LONGVARCHAR" property="extra"/>
+        <result column="privileges" jdbcType="LONGVARCHAR" property="privileges"/>
+        <result column="is_generated" jdbcType="LONGVARCHAR" property="isGenerated"/>
+        <result column="generation_expression" jdbcType="LONGVARCHAR" property="generationExpression"/>
+        <result column="srs_id" jdbcType="INTEGER" property="srsId"/>
+        <result column="java_name" jdbcType="LONGVARCHAR" property="javaName"/>
+        <result column="java_type" jdbcType="LONGVARCHAR" property="javaType"/>
+        <result column="java_type_class_name" jdbcType="LONGVARCHAR" property="javaTypeClassName"/>
+        <result column="column_swagger_comment" jdbcType="LONGVARCHAR" property="columnSwaggerComment"/>
+        <result column="column_validation_comment" jdbcType="LONGVARCHAR" property="columnValidationComment"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        user_id,
+        table_cfg_id,
+        table_schema,
+        "table_name",
+        ordinal_position,
+        "column_name",
+        column_type,
+        column_comment,
+        data_type,
+        table_catalog,
+        column_default,
+        is_nullable,
+        character_maximum_length,
+        character_octet_length,
+        numeric_precision,
+        numeric_scale,
+        datetime_precision,
+        "character_set_name",
+        "collation_name",
+        column_key,
+        extra,
+        "privileges",
+        is_generated,
+        generation_expression,
+        srs_id,
+        java_name,
+        java_type,
+        java_type_class_name,
+        column_swagger_comment,
+        column_validation_comment
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_column_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete
+        from t_column_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.ColumnCfg" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_column_cfg (user_id, table_cfg_id, table_schema,
+                                  "table_name", ordinal_position, "column_name",
+                                  column_type, column_comment, data_type,
+                                  table_catalog, column_default, is_nullable,
+                                  character_maximum_length, character_octet_length,
+                                  numeric_precision, numeric_scale,
+                                  datetime_precision, "character_set_name",
+                                  "collation_name", column_key, extra,
+                                  "privileges", is_generated, generation_expression,
+                                  srs_id, java_name, java_type,
+                                  java_type_class_name, column_swagger_comment,
+                                  column_validation_comment)
+        values (#{userId,jdbcType=INTEGER}, #{tableCfgId,jdbcType=INTEGER}, #{tableSchema,jdbcType=LONGVARCHAR},
+                #{tableName,jdbcType=LONGVARCHAR}, #{ordinalPosition,jdbcType=LONGVARCHAR}, #{columnName,jdbcType=LONGVARCHAR},
+                #{columnType,jdbcType=LONGVARCHAR}, #{columnComment,jdbcType=LONGVARCHAR}, #{dataType,jdbcType=LONGVARCHAR},
+                #{tableCatalog,jdbcType=LONGVARCHAR}, #{columnDefault,jdbcType=LONGVARCHAR}, #{isNullable,jdbcType=LONGVARCHAR},
+                #{characterMaximumLength,jdbcType=LONGVARCHAR}, #{characterOctetLength,jdbcType=LONGVARCHAR},
+                #{numericPrecision,jdbcType=LONGVARCHAR}, #{numericScale,jdbcType=LONGVARCHAR},
+                #{datetimePrecision,jdbcType=LONGVARCHAR}, #{characterSetName,jdbcType=LONGVARCHAR},
+                #{collationName,jdbcType=LONGVARCHAR}, #{columnKey,jdbcType=LONGVARCHAR}, #{extra,jdbcType=LONGVARCHAR},
+                #{privileges,jdbcType=LONGVARCHAR}, #{isGenerated,jdbcType=LONGVARCHAR}, #{generationExpression,jdbcType=LONGVARCHAR},
+                #{srsId,jdbcType=INTEGER}, #{javaName,jdbcType=LONGVARCHAR}, #{javaType,jdbcType=LONGVARCHAR},
+                #{javaTypeClassName,jdbcType=LONGVARCHAR}, #{columnSwaggerComment,jdbcType=LONGVARCHAR},
+                #{columnValidationComment,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.ColumnCfg" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_column_cfg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="tableCfgId != null">
+                table_cfg_id,
+            </if>
+            <if test="tableSchema != null">
+                table_schema,
+            </if>
+            <if test="tableName != null">
+                "table_name",
+            </if>
+            <if test="ordinalPosition != null">
+                ordinal_position,
+            </if>
+            <if test="columnName != null">
+                "column_name",
+            </if>
+            <if test="columnType != null">
+                column_type,
+            </if>
+            <if test="columnComment != null">
+                column_comment,
+            </if>
+            <if test="dataType != null">
+                data_type,
+            </if>
+            <if test="tableCatalog != null">
+                table_catalog,
+            </if>
+            <if test="columnDefault != null">
+                column_default,
+            </if>
+            <if test="isNullable != null">
+                is_nullable,
+            </if>
+            <if test="characterMaximumLength != null">
+                character_maximum_length,
+            </if>
+            <if test="characterOctetLength != null">
+                character_octet_length,
+            </if>
+            <if test="numericPrecision != null">
+                numeric_precision,
+            </if>
+            <if test="numericScale != null">
+                numeric_scale,
+            </if>
+            <if test="datetimePrecision != null">
+                datetime_precision,
+            </if>
+            <if test="characterSetName != null">
+                "character_set_name",
+            </if>
+            <if test="collationName != null">
+                "collation_name",
+            </if>
+            <if test="columnKey != null">
+                column_key,
+            </if>
+            <if test="extra != null">
+                extra,
+            </if>
+            <if test="privileges != null">
+                "privileges",
+            </if>
+            <if test="isGenerated != null">
+                is_generated,
+            </if>
+            <if test="generationExpression != null">
+                generation_expression,
+            </if>
+            <if test="srsId != null">
+                srs_id,
+            </if>
+            <if test="javaName != null">
+                java_name,
+            </if>
+            <if test="javaType != null">
+                java_type,
+            </if>
+            <if test="javaTypeClassName != null">
+                java_type_class_name,
+            </if>
+            <if test="columnSwaggerComment != null">
+                column_swagger_comment,
+            </if>
+            <if test="columnValidationComment != null">
+                column_validation_comment,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="tableCfgId != null">
+                #{tableCfgId,jdbcType=INTEGER},
+            </if>
+            <if test="tableSchema != null">
+                #{tableSchema,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableName != null">
+                #{tableName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="ordinalPosition != null">
+                #{ordinalPosition,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnName != null">
+                #{columnName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnType != null">
+                #{columnType,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnComment != null">
+                #{columnComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="dataType != null">
+                #{dataType,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableCatalog != null">
+                #{tableCatalog,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnDefault != null">
+                #{columnDefault,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isNullable != null">
+                #{isNullable,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="characterMaximumLength != null">
+                #{characterMaximumLength,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="characterOctetLength != null">
+                #{characterOctetLength,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="numericPrecision != null">
+                #{numericPrecision,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="numericScale != null">
+                #{numericScale,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="datetimePrecision != null">
+                #{datetimePrecision,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="characterSetName != null">
+                #{characterSetName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="collationName != null">
+                #{collationName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnKey != null">
+                #{columnKey,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="extra != null">
+                #{extra,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="privileges != null">
+                #{privileges,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenerated != null">
+                #{isGenerated,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="generationExpression != null">
+                #{generationExpression,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="srsId != null">
+                #{srsId,jdbcType=INTEGER},
+            </if>
+            <if test="javaName != null">
+                #{javaName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="javaType != null">
+                #{javaType,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="javaTypeClassName != null">
+                #{javaTypeClassName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnSwaggerComment != null">
+                #{columnSwaggerComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnValidationComment != null">
+                #{columnValidationComment,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dororo.future.igrowcopilot.domain.ColumnCfg">
+        <!--@mbg.generated-->
+        update t_column_cfg
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="tableCfgId != null">
+                table_cfg_id = #{tableCfgId,jdbcType=INTEGER},
+            </if>
+            <if test="tableSchema != null">
+                table_schema = #{tableSchema,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableName != null">
+                "table_name" = #{tableName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="ordinalPosition != null">
+                ordinal_position = #{ordinalPosition,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnName != null">
+                "column_name" = #{columnName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnType != null">
+                column_type = #{columnType,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnComment != null">
+                column_comment = #{columnComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="dataType != null">
+                data_type = #{dataType,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableCatalog != null">
+                table_catalog = #{tableCatalog,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnDefault != null">
+                column_default = #{columnDefault,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isNullable != null">
+                is_nullable = #{isNullable,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="characterMaximumLength != null">
+                character_maximum_length = #{characterMaximumLength,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="characterOctetLength != null">
+                character_octet_length = #{characterOctetLength,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="numericPrecision != null">
+                numeric_precision = #{numericPrecision,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="numericScale != null">
+                numeric_scale = #{numericScale,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="datetimePrecision != null">
+                datetime_precision = #{datetimePrecision,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="characterSetName != null">
+                "character_set_name" = #{characterSetName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="collationName != null">
+                "collation_name" = #{collationName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnKey != null">
+                column_key = #{columnKey,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="extra != null">
+                extra = #{extra,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="privileges != null">
+                "privileges" = #{privileges,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isGenerated != null">
+                is_generated = #{isGenerated,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="generationExpression != null">
+                generation_expression = #{generationExpression,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="srsId != null">
+                srs_id = #{srsId,jdbcType=INTEGER},
+            </if>
+            <if test="javaName != null">
+                java_name = #{javaName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="javaType != null">
+                java_type = #{javaType,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="javaTypeClassName != null">
+                java_type_class_name = #{javaTypeClassName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnSwaggerComment != null">
+                column_swagger_comment = #{columnSwaggerComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="columnValidationComment != null">
+                column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dororo.future.igrowcopilot.domain.ColumnCfg">
+        <!--@mbg.generated-->
+        update t_column_cfg
+        set user_id                   = #{userId,jdbcType=INTEGER},
+            table_cfg_id              = #{tableCfgId,jdbcType=INTEGER},
+            table_schema              = #{tableSchema,jdbcType=LONGVARCHAR},
+            "table_name"              = #{tableName,jdbcType=LONGVARCHAR},
+            ordinal_position          = #{ordinalPosition,jdbcType=LONGVARCHAR},
+            "column_name"             = #{columnName,jdbcType=LONGVARCHAR},
+            column_type               = #{columnType,jdbcType=LONGVARCHAR},
+            column_comment            = #{columnComment,jdbcType=LONGVARCHAR},
+            data_type                 = #{dataType,jdbcType=LONGVARCHAR},
+            table_catalog             = #{tableCatalog,jdbcType=LONGVARCHAR},
+            column_default            = #{columnDefault,jdbcType=LONGVARCHAR},
+            is_nullable               = #{isNullable,jdbcType=LONGVARCHAR},
+            character_maximum_length  = #{characterMaximumLength,jdbcType=LONGVARCHAR},
+            character_octet_length    = #{characterOctetLength,jdbcType=LONGVARCHAR},
+            numeric_precision         = #{numericPrecision,jdbcType=LONGVARCHAR},
+            numeric_scale             = #{numericScale,jdbcType=LONGVARCHAR},
+            datetime_precision        = #{datetimePrecision,jdbcType=LONGVARCHAR},
+            "character_set_name"      = #{characterSetName,jdbcType=LONGVARCHAR},
+            "collation_name"          = #{collationName,jdbcType=LONGVARCHAR},
+            column_key                = #{columnKey,jdbcType=LONGVARCHAR},
+            extra                     = #{extra,jdbcType=LONGVARCHAR},
+            "privileges"              = #{privileges,jdbcType=LONGVARCHAR},
+            is_generated              = #{isGenerated,jdbcType=LONGVARCHAR},
+            generation_expression     = #{generationExpression,jdbcType=LONGVARCHAR},
+            srs_id                    = #{srsId,jdbcType=INTEGER},
+            java_name                 = #{javaName,jdbcType=LONGVARCHAR},
+            java_type                 = #{javaType,jdbcType=LONGVARCHAR},
+            java_type_class_name      = #{javaTypeClassName,jdbcType=LONGVARCHAR},
+            column_swagger_comment    = #{columnSwaggerComment,jdbcType=LONGVARCHAR},
+            column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="findOneByAll" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_column_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="tableCfgId != null">
+                and table_cfg_id = #{tableCfgId,jdbcType=INTEGER}
+            </if>
+            <if test="tableSchema != null">
+                and table_schema = #{tableSchema,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableName != null">
+                and "table_name" = #{tableName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="ordinalPosition != null">
+                and ordinal_position = #{ordinalPosition,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnName != null">
+                and "column_name" = #{columnName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnType != null">
+                and column_type = #{columnType,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnComment != null">
+                and column_comment = #{columnComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="dataType != null">
+                and data_type = #{dataType,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableCatalog != null">
+                and table_catalog = #{tableCatalog,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnDefault != null">
+                and column_default = #{columnDefault,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isNullable != null">
+                and is_nullable = #{isNullable,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="characterMaximumLength != null">
+                and character_maximum_length = #{characterMaximumLength,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="characterOctetLength != null">
+                and character_octet_length = #{characterOctetLength,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="numericPrecision != null">
+                and numeric_precision = #{numericPrecision,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="numericScale != null">
+                and numeric_scale = #{numericScale,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="datetimePrecision != null">
+                and datetime_precision = #{datetimePrecision,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="characterSetName != null">
+                and "character_set_name" = #{characterSetName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="collationName != null">
+                and "collation_name" = #{collationName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnKey != null">
+                and column_key = #{columnKey,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="extra != null">
+                and extra = #{extra,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="privileges != null">
+                and "privileges" = #{privileges,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenerated != null">
+                and is_generated = #{isGenerated,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="generationExpression != null">
+                and generation_expression = #{generationExpression,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="srsId != null">
+                and srs_id = #{srsId,jdbcType=INTEGER}
+            </if>
+            <if test="javaName != null">
+                and java_name = #{javaName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="javaType != null">
+                and java_type = #{javaType,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="javaTypeClassName != null">
+                and java_type_class_name = #{javaTypeClassName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnSwaggerComment != null">
+                and column_swagger_comment = #{columnSwaggerComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnValidationComment != null">
+                and column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="getLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ROWID()
+    </select>
+    <!--auto generated by MybatisCodeHelper on 2024-04-17-->
+    <select id="findByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_column_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="tableCfgId != null">
+                and table_cfg_id = #{tableCfgId,jdbcType=INTEGER}
+            </if>
+            <if test="javaName != null">
+                and java_name = #{javaName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="javaType != null">
+                and java_type = #{javaType,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="javaTypeClassName != null">
+                and java_type_class_name = #{javaTypeClassName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnSwaggerComment != null">
+                and column_swagger_comment = #{columnSwaggerComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnValidationComment != null">
+                and column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableCatalog != null">
+                and table_catalog = #{tableCatalog,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableSchema != null">
+                and table_schema = #{tableSchema,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableName != null">
+                and `table_name` = #{tableName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnName != null">
+                and `column_name` = #{columnName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="ordinalPosition != null">
+                and ordinal_position = #{ordinalPosition,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnDefault != null">
+                and column_default = #{columnDefault,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isNullable != null">
+                and is_nullable = #{isNullable,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="dataType != null">
+                and data_type = #{dataType,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="characterMaximumLength != null">
+                and character_maximum_length = #{characterMaximumLength,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="characterOctetLength != null">
+                and character_octet_length = #{characterOctetLength,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="numericPrecision != null">
+                and numeric_precision = #{numericPrecision,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="numericScale != null">
+                and numeric_scale = #{numericScale,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="datetimePrecision != null">
+                and datetime_precision = #{datetimePrecision,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="characterSetName != null">
+                and `character_set_name` = #{characterSetName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="collationName != null">
+                and `collation_name` = #{collationName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnType != null">
+                and column_type = #{columnType,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnKey != null">
+                and column_key = #{columnKey,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="extra != null">
+                and extra = #{extra,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="privileges != null">
+                and `privileges` = #{privileges,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="columnComment != null">
+                and column_comment = #{columnComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isGenerated != null">
+                and is_generated = #{isGenerated,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="generationExpression != null">
+                and generation_expression = #{generationExpression,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="srsId != null">
+                and srs_id = #{srsId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+</mapper>
