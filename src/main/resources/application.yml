@@ -28,3 +28,5 @@ logging:
     org.mybatis.spring.SqlSessionFactoryBean: DEBUG
 
 
+render-mapper:
+  - controller:

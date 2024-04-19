@@ -70,8 +70,8 @@ public class OptService {
         File file = FileUtil.file(outputDir, CommonConstants.NZMB);
         FileUtil.mkdir(file);
         FileUtil.copyContent(FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".template"), file, true);
-        // 根据名称,按照配置的包层级创建目录然后渲染     
-        
+        // 根据名称,按照配置的包层级创建目录然后渲染    
+
     }
 
     private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
