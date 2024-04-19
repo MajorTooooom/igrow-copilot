@@ -129,7 +129,10 @@ public class OptService {
                 }
                 // 如果是目录模式,根据配置的目录设置输出路径     
                 if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
-                    // TODO     
+                    File nzmbToDir = FileUtil.file(outputDir, CommonConstants.NZMB_RESULT);
+                    String parent = FileUtil.getParent(absolutePath, 1);
+                    String mainName = FileUtil.mainName(agreedFile);
+                    String targetPath = getBuiltInTargetAbsPath(agreed, genCfgId, nzmbToDir);
                 }
                 templateWorker.setSuccess(true);
             } catch (Exception e) {
@@ -139,6 +142,10 @@ public class OptService {
             }
             templateWorkers.add(templateWorker);
         }
+    }
+
+    private String getBuiltInTargetAbsPath(String agreed, Integer genCfgId, File nzmbToDir) {
+        return null;
     }
 
     private String getTemplateContent(String absolutePath) {
