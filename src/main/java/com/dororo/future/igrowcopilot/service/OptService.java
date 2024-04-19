@@ -13,6 +13,7 @@ import com.dororo.future.igrowcopilot.domain.TableCfg;
 import com.dororo.future.igrowcopilot.dto.TemplateWorker;
 import com.dororo.future.igrowcopilot.dto.TemplateEnvDTO;
 import com.dororo.future.igrowcopilot.enums.RenderModeEnum;
+import com.dororo.future.igrowcopilot.enums.TemplateFromEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,7 +68,6 @@ public class OptService {
     }
 
     private void renderBuiltIn(List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir, RenderModeEnum modeEnum) {
-        TemplateWorker templateWorker = new TemplateWorker();
         // 拷贝内置模板到目标目录
         File nzmbDir = FileUtil.file(outputDir, CommonConstants.NZMB);
         FileUtil.mkdir(nzmbDir);
@@ -98,6 +98,20 @@ public class OptService {
             }
         }
         for (String agreed : agreedList) {
+            TemplateWorker templateWorker = TemplateWorker.builder().from(TemplateFromEnum.BUILT_IN.code).build();
+            try {
+                // 找出对应的文件
+                File agreedFile = nzmbs.stream().filter(s -> FileUtil.mainName(s).equals(agreed)).findFirst().get();
+                String extName = FileUtil.extName(agreedFile);
+                boolean isFm = StrUtil.equals(extName, "ftl", true);
+                if (modeEnum.equals(RenderModeEnum.STRING_MODE)) {
+
+                } else if (modeEnum.equals(RenderModeEnum.ZIP_MODE)) {
+                } else if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
+                }
+            } catch (Exception e) {
+            }
+            templateWorkers.add(templateWorker);
         }
     }
 
