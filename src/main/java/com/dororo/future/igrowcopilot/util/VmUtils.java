@@ -14,4 +14,7 @@ import java.io.StringWriter;
  * velocity工具类
  */
 public class VmUtils {
+    public static String renderToString(String templateContent, TemplateEnvDTO templateEnv) {
+        return null;
+    }
 }

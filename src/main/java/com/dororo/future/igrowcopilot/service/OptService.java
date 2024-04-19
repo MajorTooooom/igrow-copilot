@@ -116,7 +116,8 @@ public class OptService {
                 // 
                 boolean isFm = StrUtil.equals(extName, "ftl", true);
                 // 全部模式都收集字符串结果
-                String stringResult = isFm ? FmUtils.renderToString(absolutePath, templateEnv) : VmUtils.renderToString(absolutePath, templateEnv);
+                String templateContent = getTemplateContent(absolutePath);
+                String stringResult = isFm ? FmUtils.renderToString(FileUtil.getName(absolutePath), templateContent, templateEnv) : VmUtils.renderToString(templateContent, templateEnv);
                 templateWorker.setStringResult(stringResult);
 
                 // 如果是ZIP模式,渲染为临时文件并打包,然后将路径返回     
@@ -131,6 +132,10 @@ public class OptService {
             }
             templateWorkers.add(templateWorker);
         }
+    }
+
+    private String getTemplateContent(String absolutePath) {
+        return FileUtil.readUtf8String(absolutePath);
     }
 
     private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir, RenderModeEnum modeEnum) {

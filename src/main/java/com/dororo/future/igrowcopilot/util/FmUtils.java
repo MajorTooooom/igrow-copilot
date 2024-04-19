@@ -15,4 +15,15 @@ import java.io.StringWriter;
  * freeMarker工具类
  */
 public class FmUtils {
+    @SneakyThrows
+    public static String renderToString(String templateName, String templateContent, TemplateEnvDTO templateEnv) {
+        Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
+        cfg.setSharedVariable("DateUtil", new DateUtil());
+        cfg.setSharedVariable("StrUtil", new StrUtil());
+        Template template = new Template(templateName, new StringReader(templateContent), cfg);
+        try (StringWriter writer = new StringWriter()) {
+            template.process(templateEnv, writer);
+            return writer.toString();
+        }
+    }
 }
