@@ -137,6 +137,9 @@ public class OptService {
                     String parent = FileUtil.getParent(absolutePath, 1);
                     String mainName = FileUtil.mainName(agreedFile);
                     String targetPath = getBuiltInTargetAbsPath(agreedFile, genCfg, tableCfg, nzmbToDir);
+                    Boolean aBoolean = isFm ?
+                            FmUtils.renderToFile(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv), targetPath)
+                            : VmUtils.renderToFile(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv), targetPath);
                 }
                 templateWorker.setSuccess(true);
             } catch (Exception e) {

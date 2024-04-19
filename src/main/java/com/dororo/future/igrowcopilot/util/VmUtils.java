@@ -26,4 +26,8 @@ public class VmUtils {
         velocityEngine.evaluate(context, writer, templateName, templateContent);
         return writer.toString();
     }
+
+    public static Boolean renderToFile(String name, String templateContent, Map<String, Object> stringObjectMap, String targetPath) {
+        return null;
+    }
 }
