@@ -117,7 +117,10 @@ public class OptService {
                 boolean isFm = StrUtil.equals(extName, "ftl", true);
                 // 全部模式都收集字符串结果
                 String templateContent = getTemplateContent(absolutePath);
-                String stringResult = isFm ? FmUtils.renderToString(FileUtil.getName(absolutePath), templateContent, templateEnv) : VmUtils.renderToString(templateContent, templateEnv);
+                String stringResult = isFm ?
+                        FmUtils.renderToString(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv))
+                        : VmUtils.renderToString(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv));
+                // 
                 templateWorker.setStringResult(stringResult);
 
                 // 如果是ZIP模式,渲染为临时文件并打包,然后将路径返回     
