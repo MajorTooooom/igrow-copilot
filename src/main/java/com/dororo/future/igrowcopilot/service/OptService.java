@@ -103,6 +103,11 @@ public class OptService {
         // 模板环境变量
         TemplateEnvDTO templateEnv = getTemplateEnv(tableCfgId, genCfgId);
 
+        // 渲染目录配置
+        GenCfg genCfg = genCfgService.selectByPrimaryKey(genCfgId);
+        TableCfg tableCfg = tableCfgService.selectByPrimaryKey(tableCfgId);
+        // 内置模板渲染结果目录
+        File nzmbToDir = FileUtil.file(outputDir, CommonConstants.NZMB_RESULT);
         for (String agreed : agreedList) {
             TemplateWorker templateWorker = TemplateWorker.builder().from(TemplateFromEnum.BUILT_IN.code).mainName(agreed).extName(null).templateContent(null).errorMessage(null).absolutePath(null).stringResult(null).success(false).build();
             try {
@@ -129,10 +134,9 @@ public class OptService {
                 }
                 // 如果是目录模式,根据配置的目录设置输出路径     
                 if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
-                    File nzmbToDir = FileUtil.file(outputDir, CommonConstants.NZMB_RESULT);
                     String parent = FileUtil.getParent(absolutePath, 1);
                     String mainName = FileUtil.mainName(agreedFile);
-                    String targetPath = getBuiltInTargetAbsPath(agreed, genCfgId, nzmbToDir);
+                    String targetPath = getBuiltInTargetAbsPath(agreedFile, genCfg, tableCfg, nzmbToDir);
                 }
                 templateWorker.setSuccess(true);
             } catch (Exception e) {
@@ -144,9 +148,15 @@ public class OptService {
         }
     }
 
-    private String getBuiltInTargetAbsPath(String agreed, Integer genCfgId, File nzmbToDir) {
-        return null;
+    private String getBuiltInTargetAbsPath(File agreedFile, GenCfg genCfg, TableCfg tableCfg, File nzmbToDir) {
+        File targetFile = null;
+        String mainName = FileUtil.mainName(agreedFile);
+        if (StrUtil.equals("mapperXml", mainName)) {
+            targetFile = FileUtil.file(genCfg.getResourceAbsPath(), genCfg.getMapperXmlPath(), tableCfg.getDomainName() + "Mapper.xml");
+        }
+        return FileUtil.getAbsolutePath(targetFile);
     }
+
 
     private String getTemplateContent(String absolutePath) {
         return FileUtil.readUtf8String(absolutePath);
