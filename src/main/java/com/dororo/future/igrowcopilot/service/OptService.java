@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.system.SystemUtil;
+import com.dororo.future.igrowcopilot.constant.CommonConstants;
 import com.dororo.future.igrowcopilot.domain.ColumnCfg;
 import com.dororo.future.igrowcopilot.domain.GenCfg;
 import com.dororo.future.igrowcopilot.domain.TableCfg;
@@ -66,7 +67,11 @@ public class OptService {
     }
 
     private void renderBuiltIn(List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
-        FileUtil.file(outputDir,commocons);
+        File file = FileUtil.file(outputDir, CommonConstants.NZMB);
+        FileUtil.mkdir(file);
+        FileUtil.copyContent(FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".template"), file, true);
+        // 根据名称,按照配置的包层级创建目录然后渲染     
+        
     }
 
     private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
