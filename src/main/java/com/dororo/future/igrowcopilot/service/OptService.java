@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.system.SystemUtil;
 import com.dororo.future.igrowcopilot.constant.CommonConstants;
@@ -156,7 +157,25 @@ public class OptService {
         String mainName = FileUtil.mainName(agreedFile);
         if (StrUtil.equals("mapperXml", mainName)) {
             targetFile = FileUtil.file(genCfg.getResourceAbsPath(), genCfg.getMapperXmlPath(), tableCfg.getDomainName() + "Mapper.xml");
+        } else if (StrUtil.equals("mapper", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getMapperPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "Mapper.java");
+        } else if (StrUtil.equals("service", mainName)) {
+        } else if (StrUtil.equals("domain", mainName)) {
+        } else if (StrUtil.equals("domainAddDTO", mainName)) {
+        } else if (StrUtil.equals("domainUpdateDTO", mainName)) {
+        } else if (StrUtil.equals("domainPageDTO", mainName)) {
+        } else if (StrUtil.equals("domainImportDTO", mainName)) {
+        } else if (StrUtil.equals("domainExportDTO", mainName)) {
+        } else if (StrUtil.equals("easyExcelListener", mainName)) {
+        } else if (StrUtil.equals("controller", mainName)) {
         }
+
+
         return FileUtil.getAbsolutePath(targetFile);
     }
 
