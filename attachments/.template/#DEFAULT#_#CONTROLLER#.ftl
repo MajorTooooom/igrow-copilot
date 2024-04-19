@@ -1,6 +1,0 @@
-<#include "envFormatHelper.ftl">
-
-
-==================================
-${domainChineseDescription}
-==================================

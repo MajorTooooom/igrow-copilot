@@ -89,7 +89,7 @@ public class OptService {
                 , "domainPageDTO"// domainPageDTO.java
                 , "domainImportDTO"// domainImportDTO.java
                 , "domainExportDTO"// domainExportDTO.java
-                , "EasyExcelListener"// EasyExcelListener.java
+                , "easyExcelListener"// easyExcelListener.java
                 , "controller"// controller.java
         );
         // 检查期望的模板,在仓库中是否存在同名模板,比如同时存在"controller.ftl"、"controller.vm",将导致混乱     
