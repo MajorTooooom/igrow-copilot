@@ -52,15 +52,15 @@
     <div class="render-result-tab-clazz">
       <el-empty description="暂无预览数据,请选择web预览" v-if="!(renderResults&&renderResults.length>0)"></el-empty>
       <el-tabs type="border-card" :tab-position="'left'" style="min-height:400px;" :stretch="true" v-if="(renderResults&&renderResults.length>0)">
-        <el-tab-pane :label="data.originalFilename+(data.renderSuccess?'':'（报错）')" v-for="data in renderResults" style="min-height: 600px;">
+        <el-tab-pane :label="data.mainName+'.'+data.extName+(data.success?'':'（报错）')" v-for="data in renderResults" style="min-height: 600px;">
           <div style="height: 100%; overflow-y: auto;">
-            <el-alert :title="getRenderResultTitle(data)" :type="data.renderSuccess?'success':'error'" :closable="false"></el-alert>
+            <el-alert :title="getRenderResultTitle(data)" :type="data.success?'success':'error'" :closable="false"></el-alert>
             <!---->
-            <el-input v-if="!data.renderSuccess" type="textarea" :autosize="{ minRows: 5,maxRows:15}" placeholder="" v-model="data.errorMessage" class="textarea-font-size"></el-input>
-            <el-alert v-if="!data.renderSuccess" title="模板原文" :type="data.renderSuccess?'success':'error'" :closable="false"></el-alert>
-            <el-input v-if="!data.renderSuccess" type="textarea" :autosize="{ minRows: 5,maxRows:15}" placeholder="" v-model="data.templateContent" class="textarea-font-size"></el-input>
+            <el-input v-if="!data.success" type="textarea" :autosize="{ minRows: 5,maxRows:15}" placeholder="" v-model="data.errorMessage" class="textarea-font-size"></el-input>
+            <el-alert v-if="!data.success" title="模板原文" :type="data.renderSuccess?'success':'error'" :closable="false"></el-alert>
+            <el-input v-if="!data.success" type="textarea" :autosize="{ minRows: 5,maxRows:15}" placeholder="" v-model="data.templateContent" class="textarea-font-size"></el-input>
             <!---->
-            <el-input v-if="data.renderSuccess" class="textarea-font-size" type="textarea" :autosize="{ minRows: 5,maxRows:15}" placeholder="" v-model="data.renderResult"></el-input>
+            <el-input v-if="data.success" class="textarea-font-size" type="textarea" :autosize="{ minRows: 5,maxRows:15}" placeholder="" v-model="data.stringResult"></el-input>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -125,8 +125,8 @@ export default {
     beforeUpload() {
       return false;
     },
-    getRenderResultTitle(renderResult) {
-      return `文件名[${renderResult.originalFilename}]     渲染结果:${renderResult.renderSuccess ? '成功' : '失败'}`;
+    getRenderResultTitle(data) {
+      return `文件名[${data.mainName}.${data.extName}]-------渲染结果:${data.success ? '成功' : '失败'}`;
     },
     verifyBeforeRender() {
       if (!this.envCfgFormVo.tableCfgId) {

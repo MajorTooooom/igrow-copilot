@@ -1,0 +1,1 @@
+domainPageDTO.ftl

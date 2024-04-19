@@ -131,7 +131,11 @@ public class OptService {
                 if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
                     // TODO     
                 }
+                templateWorker.setSuccess(true);
             } catch (Exception e) {
+                templateWorker.setErrorMessage(e.getMessage());
+                templateWorker.setSuccess(false);
+                log.error("renderBuiltIn() called with exception => [templateWorkers = {}], [tableCfgId = {}], [genCfgId = {}], [outputDir = {}], [modeEnum = {}]", templateWorkers, tableCfgId, genCfgId, outputDir, modeEnum, e);
             }
             templateWorkers.add(templateWorker);
         }
