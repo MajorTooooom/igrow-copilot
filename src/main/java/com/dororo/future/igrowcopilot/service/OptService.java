@@ -103,7 +103,13 @@ public class OptService {
         }
         // 根据提交的配置,创建对应的包层级,渲染内置模板      
         GenCfg genCfg = genCfgService.selectByPrimaryKey(genCfgId);
+        
+        
+        
+        
+        
     }
+
 
     private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
     }
