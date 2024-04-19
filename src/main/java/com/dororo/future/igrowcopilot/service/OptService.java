@@ -1,8 +1,11 @@
 package com.dororo.future.igrowcopilot.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.system.SystemUtil;
 import com.dororo.future.igrowcopilot.constant.CommonConstants;
 import com.dororo.future.igrowcopilot.domain.ColumnCfg;
@@ -11,6 +14,7 @@ import com.dororo.future.igrowcopilot.domain.TableCfg;
 import com.dororo.future.igrowcopilot.dto.TemplateWorker;
 import com.dororo.future.igrowcopilot.dto.TemplateEnvDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,10 +71,36 @@ public class OptService {
     }
 
     private void renderBuiltIn(List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
-        File file = FileUtil.file(outputDir, CommonConstants.NZMB);
-        FileUtil.mkdir(file);
-        FileUtil.copyContent(FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".template"), file, true);
-        // 根据名称,按照配置的包层级创建目录然后渲染    
+        TemplateWorker templateWorker = new TemplateWorker();
+        // 拷贝内置模板到目标目录
+        File nzmbDir = FileUtil.file(outputDir, CommonConstants.NZMB);
+        FileUtil.mkdir(nzmbDir);
+        FileUtil.copyContent(FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".template"), nzmbDir, true);
+        // 内置模板目录下的所有文件
+        List<File> nzmbs = CollectionUtil.toList(FileUtil.ls(FileUtil.getAbsolutePath(nzmbDir)));
+        // 约定渲染的模板名称(不含扩展名)     
+        List<String> agreedList = CollectionUtil.toList(
+                "mapperXml" // mapper.xml
+                , "mapper" // mapper.java
+                , "service"// service.java
+                , "domain"// domain.java
+                , "domainAddDTO"// domainAddDTO.java
+                , "domainUpdateDTO"// domainUpdateDTO.java
+                , "domainPageDTO"// domainPageDTO.java
+                , "domainImportDTO"// domainImportDTO.java
+                , "domainExportDTO"// domainExportDTO.java
+                , "EasyExcelListener"// EasyExcelListener.java
+                , "controller"// controller.java
+        );
+        // 检查期望的模板,在仓库中是否存在同名模板,比如同时存在"controller.ftl"、"controller.vm",将导致混乱     
+        for (String agreed : agreedList) {
+            long count = nzmbs.stream().map(s -> FileUtil.mainName(s)).filter(q -> q.equals(agreed)).count();
+            if (count == 0) {
+                throw new RuntimeException(StrUtil.format("内置模板[{}]缺失,请配置{}.ftl或{}.vm", agreed, agreed, agreed));
+            } else if (count > 1) {
+                throw new RuntimeException(StrUtil.format("内置模板[{}]重复,请删除或重命名多余的{}.ftl或{}.vm", agreed, agreed, agreed));
+            }
+        }
 
     }
 

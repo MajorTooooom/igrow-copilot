@@ -1,6 +1,7 @@
 package com.dororo.future.igrowcopilot.exception;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.zhien.common.core.domain.R;
 import org.slf4j.Logger;
@@ -43,7 +44,8 @@ public class GlobalExceptionHandler {
                 return R.error("数据已存在,请勿重复提交\t" + fieldValue);
             }
         }
-        return R.error("系统异常,请联系管理员");
+        return R.error(e.getMessage());
+        // return R.error("系统异常,请联系管理员");
     }
 
     /**
