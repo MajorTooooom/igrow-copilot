@@ -3,10 +3,9 @@
     <GenCfgForm mode="search" :isInline="true" :textAlignVal="'right'" @form-submit="handleFormDataSubmit"></GenCfgForm>
     <el-button-group>
       <el-button size="mini" type="primary" @click="openGenCfgAddDialog"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增</el-button>
-      <el-button size="mini" type="primary" @click="openGenCfgUpdateDialog"><i class="fa fa-plus"></i>&nbsp;&nbsp;更新</el-button>
       <el-button size="mini" type="danger" @click="genCfgBatchDelete"><i class="fa fa-minus"></i>&nbsp;&nbsp;删除</el-button>
     </el-button-group>
-    <GenCfgTable :initialData="tableData"></GenCfgTable>
+    <GenCfgTable :initialData="tableData" @open-update="openGenCfgUpdateDialog"></GenCfgTable>
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -19,14 +18,13 @@
     <el-dialog
         :title="genCfgAddUpdateDialogVo.title"
         :visible.sync="genCfgAddUpdateDialogVo.show"
-        width="30%">
+        width="60%">
       <div>
-        <GenCfgForm mode="add" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='add'"></GenCfgForm>
-        <GenCfgForm mode="update" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='update'"></GenCfgForm>
+        <GenCfgForm mode="add" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='add'" :textAlignVal="'left'"></GenCfgForm>
+        <GenCfgForm mode="update" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='update'" :textAlignVal="'left'"></GenCfgForm>
       </div>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary">确 定</el-button>
+    <el-button @click="genCfgAddUpdateDialogVo.show = false">取 消</el-button>
   </span>
     </el-dialog>
   </div>
@@ -38,6 +36,11 @@ import request from '@/utils/request';
 import * as CommonConsts from '@/config/CommonConsts';
 import GenCfgForm from '@/views/GenCfgForm.vue';
 import GenCfgTable from '@/views/GenCfgTable.vue';
+import {
+  addGenCfgFn,
+  updateGenCfgFn,
+  pageGenCfgFn,
+} from '@/api/genCfgApi';
 
 export default {
   name: "GenMenuPage",
@@ -48,7 +51,7 @@ export default {
     return {
       genCfgFormVo: {
         id: null,
-        userId: null,
+        userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID),
         genCfgName: '',
         sourceCodeAbsPath: '',
         domainPackage: '',
@@ -84,19 +87,30 @@ export default {
   methods: {
     handleFormDataSubmit(payload) {
       console.log('接受到组件传递的参数：', payload);
+      // this.genCfgAddUpdateDialogVo.show = false;
+      if (payload.mode === 'add') {
+        this.addGenCfg(payload.formData);
+      } else if (payload.mode === 'update') {
+        this.updateGenCfg(payload.formData);
+      } else if (payload.mode === 'search') {
+        this.searchGenCfg(payload.formData);
+      }
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.pageVo.pageSize = val;
+      this.searchGenCfg();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.pageVo.pageNum = val;
+      this.searchGenCfg();
     },
     openGenCfgAddDialog() {
       this.genCfgAddUpdateDialogVo.title = '新增配置';
       this.genCfgAddUpdateDialogVo.mode = 'add';
       this.genCfgAddUpdateDialogVo.show = true;
     },
-    openGenCfgUpdateDialog() {
+    openGenCfgUpdateDialog(row) {
+      this.genCfgFormVo = row;
       this.genCfgAddUpdateDialogVo.title = '更新配置';
       this.genCfgAddUpdateDialogVo.mode = 'update';
       this.genCfgAddUpdateDialogVo.show = true;
@@ -104,15 +118,33 @@ export default {
     genCfgBatchDelete() {
       console.log('批量删除');
     },
+    addGenCfg(formData) {
+      addGenCfgFn(formData).then(res => {
+        this.genCfgAddUpdateDialogVo.show = false;
+        this.searchGenCfg();
+      });
+    },
+    updateGenCfg(formData) {
+      updateGenCfgFn(formData).then(res => {
+        this.genCfgAddUpdateDialogVo.show = false;
+        this.searchGenCfg({userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID)});
+      });
+    },
+    searchGenCfg(formData) {
+      pageGenCfgFn(formData, this.pageVo).then(res => {
+        this.tableData = res.rows;
+        this.pageVo.total = res.total;
+      });
+    },
   },// methods
   watch: {
     // 'searchParamVo.topPath': {handler: function (val, oldVal) {if (val) {this.searchParamVo.topPath = val;this.searchParamVo.topPath = '';}}, deep: true},
   },
   mounted() {
-    // this.init();
+    this.searchGenCfg({userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID)});
   },
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 </style>

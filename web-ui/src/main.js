@@ -4,6 +4,7 @@ import router from './router/router';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import moment from "moment";
+import 'font-awesome/css/font-awesome.css';
 
 Vue.use(ElementUI);
 

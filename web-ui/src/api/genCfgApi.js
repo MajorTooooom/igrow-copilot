@@ -1,5 +1,37 @@
 import request from '@/utils/request';
 
+export function addGenCfgFn(data) {
+    return request({
+        url: '/genCfg/add',
+        method: 'post',
+        data
+    });
+}
+
+export function updateGenCfgFn(data) {
+    return request({
+        url: '/genCfg/update',
+        method: 'post',
+        data
+    });
+}
+
+export function deleteGenCfgFn(data) {
+    return request({
+        url: '/genCfg/delete',
+        method: 'post',
+        data
+    });
+}
+
+export function pageGenCfgFn(data, query) {
+    return request({
+        url: '/genCfg/page',
+        method: 'post',
+        data,
+        params: query
+    });
+}
 
 // -----------------------------------------------------------------------------------------------------------------
 export function genCfgRowStyleFn({row, rowIndex}) {

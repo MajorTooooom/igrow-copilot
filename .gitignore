@@ -39,3 +39,4 @@ rebel.xml
 .logs
 /attachments/igrow-copilot.db
 !/attachments/igrow-copilot.zip
+attachments/.tmp

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{mode}}</h1>
     <el-form size="mini" ref="genCfgFormVo" :model="genCfgFormVo" label-width="180px" :inline="isInline" :style="{'textAlign':textAlignVal}">
       <el-form-item label="ID" v-if="mode === 'search' || mode === 'update'">
         <el-input v-model.number="genCfgFormVo.id" type="number"></el-input>

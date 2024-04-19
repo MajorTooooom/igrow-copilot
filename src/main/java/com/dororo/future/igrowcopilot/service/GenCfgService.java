@@ -1,5 +1,8 @@
 package com.dororo.future.igrowcopilot.service;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.date.DateUtil;
+import com.dororo.future.igrowcopilot.dto.GenCfgAddDTO;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +54,11 @@ public class GenCfgService {
         return genCfgMapper.findByAll(genCfg);
     }
 
+    public void add(GenCfgAddDTO genCfgAddDTO) {
+        GenCfg genCfg = Convert.convert(GenCfg.class, genCfgAddDTO);
+        genCfg.setId(null);
+        genCfg.setCreateTime(DateUtil.now());
+        genCfg.setUpdateTime(DateUtil.now());
+        genCfgMapper.insertSelective(genCfg);
+    }
 }

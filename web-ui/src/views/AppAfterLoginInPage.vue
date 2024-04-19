@@ -11,7 +11,8 @@
           <el-menu-item index="2"><i class="fa fa-database"></i>&nbsp;&nbsp;数据源配置</el-menu-item>
           <el-menu-item index="3"><i class="fa fa-table"></i>&nbsp;&nbsp;表&表字段配置</el-menu-item>
           <el-menu-item index="4"><i class="fa fa-plug"></i>&nbsp;&nbsp;渲染配置</el-menu-item>
-          <el-menu-item index="5"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;关于</el-menu-item>
+          <el-menu-item index="5"><i class="fa fa-plug"></i>&nbsp;&nbsp;执行>>>>>></el-menu-item>
+          <el-menu-item index="6"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;关于</el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
@@ -46,7 +47,7 @@ export default {
   name: "AppAfterLoginInPage",
   data() {
     return {
-      activeIndex: '1',
+      activeIndex: '5',
       pageLoadingVo: null,
     };
   },
@@ -57,7 +58,8 @@ export default {
         {index: '2', path: '/conn-menu'},
         {index: '3', path: '/table-menu'},
         {index: '4', path: '/gen-menu'},
-        {index: '5', path: '/about'},
+        {index: '5', path: '/opt-menu'},
+        {index: '6', path: '/about'},
       ];
       let path = arr.find(item => item.index === index).path;
       if (this.$route.path !== path) {
