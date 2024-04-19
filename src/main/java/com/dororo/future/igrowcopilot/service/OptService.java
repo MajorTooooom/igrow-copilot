@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.system.SystemUtil;
 import com.dororo.future.igrowcopilot.constant.CommonConstants;
@@ -13,8 +12,8 @@ import com.dororo.future.igrowcopilot.domain.GenCfg;
 import com.dororo.future.igrowcopilot.domain.TableCfg;
 import com.dororo.future.igrowcopilot.dto.TemplateWorker;
 import com.dororo.future.igrowcopilot.dto.TemplateEnvDTO;
+import com.dororo.future.igrowcopilot.enums.RenderModeEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,22 +54,19 @@ public class OptService {
      *
      * @param files 上传文件
      */
-    public List<TemplateWorker> renderDispatch(MultipartFile[] files, Integer tableCfgId, Integer genCfgId, String missionId) {
+    public List<TemplateWorker> renderDispatch(MultipartFile[] files, Integer tableCfgId, Integer genCfgId, String missionId, RenderModeEnum modeEnum) {
         List<TemplateWorker> templateWorkers = new ArrayList<>();
         // 总输出目录
         File outputDir = FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".tmp", missionId);
         FileUtil.mkdir(outputDir);
-
         // 处理内置模板
-        renderBuiltIn(templateWorkers, tableCfgId, genCfgId, outputDir);
-
+        renderBuiltIn(templateWorkers, tableCfgId, genCfgId, outputDir, modeEnum);
         // 处理上传模板 
-        renderUpload(files, templateWorkers, tableCfgId, genCfgId, outputDir);
-
+        renderUpload(files, templateWorkers, tableCfgId, genCfgId, outputDir, modeEnum);
         return templateWorkers;
     }
 
-    private void renderBuiltIn(List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
+    private void renderBuiltIn(List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir, RenderModeEnum modeEnum) {
         TemplateWorker templateWorker = new TemplateWorker();
         // 拷贝内置模板到目标目录
         File nzmbDir = FileUtil.file(outputDir, CommonConstants.NZMB);
@@ -103,14 +99,10 @@ public class OptService {
         }
         // 根据提交的配置,创建对应的包层级,渲染内置模板      
         GenCfg genCfg = genCfgService.selectByPrimaryKey(genCfgId);
-        
-        
-        
-        
-        
+
+
     }
 
-
-    private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
+    private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir, RenderModeEnum modeEnum) {
     }
 }

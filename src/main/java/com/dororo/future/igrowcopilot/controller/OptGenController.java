@@ -9,6 +9,7 @@ import com.dororo.future.igrowcopilot.controller.common.CopilotBaseController;
 import com.dororo.future.igrowcopilot.domain.GenCfg;
 import com.dororo.future.igrowcopilot.domain.TableCfg;
 import com.dororo.future.igrowcopilot.dto.TemplateWorker;
+import com.dororo.future.igrowcopilot.enums.RenderModeEnum;
 import com.dororo.future.igrowcopilot.service.GenCfgService;
 import com.dororo.future.igrowcopilot.service.OptService;
 import com.dororo.future.igrowcopilot.service.TableCfgService;
@@ -75,7 +76,7 @@ public class OptGenController extends CopilotBaseController {
                             @RequestParam("genCfgId") Integer genCfgId,
                             HttpServletResponse response) {
         String missionId = getMissionId();
-        List<TemplateWorker> templateWorkers = optService.renderDispatch(files, tableCfgId, genCfgId, missionId);
+        List<TemplateWorker> templateWorkers = optService.renderDispatch(files, tableCfgId, genCfgId, missionId, RenderModeEnum.STRING_MODE);
         return R.data(templateWorkers);
     }
 
@@ -85,7 +86,7 @@ public class OptGenController extends CopilotBaseController {
                          @RequestParam("genCfgId") Integer genCfgId,
                          HttpServletResponse response) {
         String missionId = getMissionId();
-        List<TemplateWorker> templateWorkers = optService.renderDispatch(files, tableCfgId, genCfgId, missionId);
+        List<TemplateWorker> templateWorkers = optService.renderDispatch(files, tableCfgId, genCfgId, missionId, RenderModeEnum.DIR_MODE);
         return R.data(templateWorkers);
     }
 
