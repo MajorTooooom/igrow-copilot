@@ -75,7 +75,7 @@ public class OptGenController extends CopilotBaseController {
                             @RequestParam("genCfgId") Integer genCfgId,
                             HttpServletResponse response) {
         String missionId = getMissionId();
-        List<TemplateWorker> templateWorkers = optService.render(files, tableCfgId, genCfgId, missionId);
+        List<TemplateWorker> templateWorkers = optService.renderDispatch(files, tableCfgId, genCfgId, missionId);
         return R.data(templateWorkers);
     }
 
@@ -85,7 +85,7 @@ public class OptGenController extends CopilotBaseController {
                          @RequestParam("genCfgId") Integer genCfgId,
                          HttpServletResponse response) {
         String missionId = getMissionId();
-        List<TemplateWorker> templateWorkers = optService.render(files, tableCfgId, genCfgId, missionId);
+        List<TemplateWorker> templateWorkers = optService.renderDispatch(files, tableCfgId, genCfgId, missionId);
         return R.data(templateWorkers);
     }
 

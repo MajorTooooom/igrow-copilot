@@ -3,27 +3,18 @@ package com.dororo.future.igrowcopilot.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import cn.hutool.system.SystemUtil;
-import com.dororo.future.igrowcopilot.constant.CacheConstants;
 import com.dororo.future.igrowcopilot.domain.ColumnCfg;
 import com.dororo.future.igrowcopilot.domain.GenCfg;
 import com.dororo.future.igrowcopilot.domain.TableCfg;
 import com.dororo.future.igrowcopilot.dto.TemplateWorker;
 import com.dororo.future.igrowcopilot.dto.TemplateEnvDTO;
-import com.dororo.future.igrowcopilot.enums.TemplateFromEnum;
-import com.dororo.future.igrowcopilot.util.FmUtils;
-import com.dororo.future.igrowcopilot.util.VmUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +50,25 @@ public class OptService {
      *
      * @param files 上传文件
      */
-    public List<TemplateWorker> render(MultipartFile[] files, Integer tableCfgId, Integer genCfgId, String missionId) {
-        return null;
+    public List<TemplateWorker> renderDispatch(MultipartFile[] files, Integer tableCfgId, Integer genCfgId, String missionId) {
+        List<TemplateWorker> templateWorkers = new ArrayList<>();
+        // 总输出目录
+        File outputDir = FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".tmp", missionId);
+        FileUtil.mkdir(outputDir);
+
+        // 处理内置模板
+        renderBuiltIn(templateWorkers, tableCfgId, genCfgId, outputDir);
+
+        // 处理上传模板 
+        renderUpload(files, templateWorkers, tableCfgId, genCfgId, outputDir);
+
+        return templateWorkers;
+    }
+
+    private void renderBuiltIn(List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
+        FileUtil.file(outputDir,commocons);
+    }
+
+    private void renderUpload(MultipartFile[] files, List<TemplateWorker> templateWorkers, Integer tableCfgId, Integer genCfgId, File outputDir) {
     }
 }
