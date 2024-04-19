@@ -18,7 +18,7 @@ public class TemplateWorker {
      */
     private Integer from;
     // 文件名
-    private String originalFileName;
+    private String mainName;
     // 扩展名
     private String extName;
     // 模板文件内容

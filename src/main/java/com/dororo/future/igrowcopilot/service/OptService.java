@@ -14,6 +14,8 @@ import com.dororo.future.igrowcopilot.dto.TemplateWorker;
 import com.dororo.future.igrowcopilot.dto.TemplateEnvDTO;
 import com.dororo.future.igrowcopilot.enums.RenderModeEnum;
 import com.dororo.future.igrowcopilot.enums.TemplateFromEnum;
+import com.dororo.future.igrowcopilot.util.FmUtils;
+import com.dororo.future.igrowcopilot.util.VmUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,17 +99,33 @@ public class OptService {
                 throw new RuntimeException(StrUtil.format("内置模板[{}]重复,请删除或重命名多余的{}.ftl或{}.vm", agreed, agreed, agreed));
             }
         }
+
+        // 模板环境变量
+        TemplateEnvDTO templateEnv = getTemplateEnv(tableCfgId, genCfgId);
+
         for (String agreed : agreedList) {
-            TemplateWorker templateWorker = TemplateWorker.builder().from(TemplateFromEnum.BUILT_IN.code).build();
+            TemplateWorker templateWorker = TemplateWorker.builder().from(TemplateFromEnum.BUILT_IN.code).mainName(agreed).extName(null).templateContent(null).errorMessage(null).absolutePath(null).stringResult(null).success(false).build();
             try {
                 // 找出对应的文件
                 File agreedFile = nzmbs.stream().filter(s -> FileUtil.mainName(s).equals(agreed)).findFirst().get();
                 String extName = FileUtil.extName(agreedFile);
+                String absolutePath = FileUtil.getAbsolutePath(agreedFile);
+                // 
+                templateWorker.setAbsolutePath(absolutePath);
+                templateWorker.setExtName(extName);
+                // 
                 boolean isFm = StrUtil.equals(extName, "ftl", true);
-                if (modeEnum.equals(RenderModeEnum.STRING_MODE)) {
+                // 全部模式都收集字符串结果
+                String stringResult = isFm ? FmUtils.renderToString(absolutePath, templateEnv) : VmUtils.renderToString(absolutePath, templateEnv);
+                templateWorker.setStringResult(stringResult);
 
-                } else if (modeEnum.equals(RenderModeEnum.ZIP_MODE)) {
-                } else if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
+                // 如果是ZIP模式,渲染为临时文件并打包,然后将路径返回     
+                if (modeEnum.equals(RenderModeEnum.ZIP_MODE)) {
+                    // TODO     
+                }
+                // 如果是目录模式,根据配置的目录设置输出路径     
+                if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
+                    // TODO     
                 }
             } catch (Exception e) {
             }
