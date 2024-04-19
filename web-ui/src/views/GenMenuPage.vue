@@ -131,7 +131,7 @@ export default {
       });
     },
     searchGenCfg(formData) {
-      pageGenCfgFn(formData, this.pageVo).then(res => {
+      pageGenCfgFn(formData || {}, this.pageVo).then(res => {
         this.tableData = res.rows;
         this.pageVo.total = res.total;
       });
