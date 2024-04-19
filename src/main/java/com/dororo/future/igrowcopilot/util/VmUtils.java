@@ -27,7 +27,8 @@ public class VmUtils {
         return writer.toString();
     }
 
-    public static Boolean renderToFile(String name, String templateContent, Map<String, Object> stringObjectMap, String targetPath) {
+    public static Boolean renderToFile(String parent, String mainName, Map<String, Object> stringObjectMap, String targetPath) {
+        // TODO
         return null;
     }
 }

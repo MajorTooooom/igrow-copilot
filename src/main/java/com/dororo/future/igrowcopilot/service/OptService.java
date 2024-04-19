@@ -139,8 +139,8 @@ public class OptService {
                     String mainName = FileUtil.mainName(agreedFile);
                     String targetPath = getBuiltInTargetAbsPath(agreedFile, genCfg, tableCfg, nzmbToDir);
                     Boolean aBoolean = isFm ?
-                            FmUtils.renderToFile(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv), targetPath)
-                            : VmUtils.renderToFile(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv), targetPath);
+                            FmUtils.renderToFile(parent, FileUtil.getName(absolutePath), BeanUtil.beanToMap(templateEnv), targetPath)
+                            : VmUtils.renderToFile(parent, mainName, BeanUtil.beanToMap(templateEnv), targetPath);
                 }
                 templateWorker.setSuccess(true);
             } catch (Exception e) {
@@ -165,17 +165,69 @@ public class OptService {
             }
             targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "Mapper.java");
         } else if (StrUtil.equals("service", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getServicePackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "Service.java");
         } else if (StrUtil.equals("domain", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getDomainPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + ".java");
         } else if (StrUtil.equals("domainAddDTO", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getDtoPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "AddDTO.java");
         } else if (StrUtil.equals("domainUpdateDTO", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getDtoPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "UpdateDTO.java");
         } else if (StrUtil.equals("domainPageDTO", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getDtoPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "PageDTO.java");
         } else if (StrUtil.equals("domainImportDTO", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getDtoPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "ImportDTO.java");
         } else if (StrUtil.equals("domainExportDTO", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getDtoPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "ExportDTO.java");
         } else if (StrUtil.equals("easyExcelListener", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getEasyExcelListenerPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "ImportListener.java");
         } else if (StrUtil.equals("controller", mainName)) {
+            String[] pkgs = StrUtil.split(genCfg.getControllerPackage(), StrUtil.DOT);
+            targetFile = FileUtil.file(genCfg.getSourceCodeAbsPath());
+            for (int i = 0; i < pkgs.length; i++) {
+                targetFile = FileUtil.file(targetFile, pkgs[i]);
+            }
+            targetFile = FileUtil.file(targetFile, tableCfg.getDomainName() + "Controller.java");
         }
-
-
         return FileUtil.getAbsolutePath(targetFile);
     }
 
