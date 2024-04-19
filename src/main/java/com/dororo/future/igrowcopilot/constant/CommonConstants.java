@@ -13,5 +13,4 @@ public class CommonConstants {
     public static final String NZMB_RESULT = "内置模板渲染结果";
     public static final String UPLOAD = "上传模板";
     public static final String UPLOAD_RESULT = "上传模板渲染结果";
-
 }
