@@ -6,6 +6,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.system.SystemUtil;
 import com.dororo.future.igrowcopilot.constant.CommonConstants;
 import com.dororo.future.igrowcopilot.domain.ColumnCfg;
@@ -60,6 +61,19 @@ public class OptService {
      */
     public List<TemplateWorker> renderDispatch(MultipartFile[] files, Integer tableCfgId, Integer genCfgId, String missionId, RenderModeEnum modeEnum) {
         List<TemplateWorker> templateWorkers = new ArrayList<>();
+        // 增加一组结果展示环境变量
+        templateWorkers.add(TemplateWorker.builder()
+                .from(TemplateFromEnum.BUILT_IN.code)
+                .mainName("环境变量预览")
+                .extName("json")
+                .templateContent(null)
+                .errorMessage(null)
+                .absolutePath(null)
+                .stringResult(JSONUtil.toJsonPrettyStr(getTemplateEnv(tableCfgId, genCfgId)))
+                .success(true)
+                .build());
+
+
         // 总输出目录
         File outputDir = FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".tmp", missionId);
         FileUtil.mkdir(outputDir);
