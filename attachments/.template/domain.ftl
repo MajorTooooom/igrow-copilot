@@ -1,3 +1,4 @@
+<#include "环境变量辅助.ftl"/>
 package ${domainPackage};
 
 <#if isGenSwagger>
@@ -18,11 +19,11 @@ import lombok.experimental.Accessors;
 
 <#if isGenComment>
 /**
- * `${domainZnName!tableName}`实体类
+ * `${domainChineseDescription}`实体类
  */
 </#if>
 <#if isGenSwagger>
-@ApiModel(description = "`${domainZnName!tableName}`实体类")
+@ApiModel(description = "`${domainChineseDescription}`实体类")
 </#if>
 @Data
 @Builder
@@ -31,13 +32,22 @@ import lombok.experimental.Accessors;
 @Table(name = "${tableName}")
 public class ${domainName} {
 <#list columns as column>
+    <#--字段的备注是否非空-->
+    <#if (column.columnComment?trim!"")?length > 0>
     /**
-     * 主键ID
+     * ${column.columnComment}
      */
+    </#if>
+    <#if column.columnKey!?has_content && column.columnKey == "PRI">
     @Id
-    @Column(name = "id")
+    @Column(name = "${column.columnName}")
     @GeneratedValue(generator = "JDBC")
-    @ApiModelProperty(value = "主键ID")
+    <#else>
+    @Column(name = "${column.columnName}")
+    </#if>
+    <#if isGenSwagger>
+    @ApiModelProperty(value = "${column.columnComment!}")
+    </#if>
     private Integer id;
 
     /**
