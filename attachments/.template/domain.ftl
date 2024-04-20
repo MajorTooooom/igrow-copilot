@@ -18,16 +18,19 @@ import lombok.experimental.Accessors;
 
 <#if isGenComment>
 /**
- * 学员培训审核表
+ * `${domainZnName!tableName}`实体类
  */
 </#if>
-@ApiModel(description = "学员培训审核表")
+<#if isGenSwagger>
+@ApiModel(description = "`${domainZnName!tableName}`实体类")
+</#if>
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "aaaa_bbbb_cccc")
-public class AaaaBbbbCccc {
+@Table(name = "${tableName}")
+public class ${domainName} {
+<#list columns as column>
     /**
      * 主键ID
      */
@@ -64,4 +67,5 @@ public class AaaaBbbbCccc {
     @Column(name = "birthday")
     @ApiModelProperty(value = "生日")
     private Date birthday;
+</#list>
 }
