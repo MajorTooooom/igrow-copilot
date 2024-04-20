@@ -38,8 +38,8 @@ public class ${domainName}AddDTO {
         <#if isGenSwagger! == "true">
     @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}", required = true)
         </#if>
-    @NotBlank(message = "姓名不能为空")
-    private String name;
+    @${((column.javaType?trim!"") == "java.lang.String")?then("NotBlank","NotNull")}(message = "${((column.columnValidationComment?trim!"")?length > 0)?then(column.columnValidationComment, column.javaName)}不能为空")
+    private ${column.javaTypeClassName} ${column.javaName};
     </#if>
 </#list>
 }
