@@ -25,8 +25,9 @@ public class FmUtils {
     }
 
     @SneakyThrows
-    public static String renderToString(String templateName, String templateContent, Map<String, Object> envMap) {
+    public static String renderToString(String parent, String templateName, String templateContent, Map<String, Object> envMap) {
         Configuration cfg = getCommonFmCfg();
+        cfg.setDirectoryForTemplateLoading(FileUtil.file(parent));
         Template template = new Template(templateName, new StringReader(templateContent), cfg);
         try (StringWriter writer = new StringWriter()) {
             template.process(envMap, writer);

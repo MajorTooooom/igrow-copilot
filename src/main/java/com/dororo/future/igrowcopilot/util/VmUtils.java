@@ -1,13 +1,10 @@
 package com.dororo.future.igrowcopilot.util;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.dororo.future.igrowcopilot.dto.TemplateEnvDTO;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 
-import java.io.File;
 import java.io.StringWriter;
 import java.util.Map;
 
@@ -15,10 +12,12 @@ import java.util.Map;
  * velocity工具类
  */
 public class VmUtils {
-    public static String renderToString(String templateName, String templateContent, Map<String, Object> envMap) {
+    public static String renderToString(String parent, String templateName, String templateContent, Map<String, Object> envMap) {
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADERS, "string");
         velocityEngine.addProperty("resource.loader.string.class", "org.apache.velocity.runtime.resource.loader.StringResourceLoader");
+        // TODO 待考究
+        velocityEngine.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH, parent);
         velocityEngine.init();
         //     
         VelocityContext context = new VelocityContext(envMap);

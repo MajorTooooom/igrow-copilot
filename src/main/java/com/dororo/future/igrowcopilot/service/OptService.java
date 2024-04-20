@@ -142,6 +142,8 @@ public class OptService {
                 File agreedFile = nzmbs.stream().filter(s -> FileUtil.mainName(s).equals(agreed)).findFirst().get();
                 String extName = FileUtil.extName(agreedFile);
                 String absolutePath = FileUtil.getAbsolutePath(agreedFile);
+                String parent = FileUtil.getParent(absolutePath, 1);
+                String mainName = FileUtil.mainName(agreedFile);
                 // 
                 templateWorker.setAbsolutePath(absolutePath);
                 templateWorker.setExtName(extName);
@@ -150,8 +152,8 @@ public class OptService {
                 // 全部模式都收集字符串结果
                 String templateContent = getTemplateContent(absolutePath);
                 String stringResult = isFm ?
-                        FmUtils.renderToString(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv))
-                        : VmUtils.renderToString(FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv));
+                        FmUtils.renderToString(parent, FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv))
+                        : VmUtils.renderToString(parent, FileUtil.getName(absolutePath), templateContent, BeanUtil.beanToMap(templateEnv));
                 // 
                 templateWorker.setStringResult(stringResult);
 
@@ -161,8 +163,6 @@ public class OptService {
                 }
                 // 如果是目录模式,根据配置的目录设置输出路径     
                 if (modeEnum.equals(RenderModeEnum.DIR_MODE)) {
-                    String parent = FileUtil.getParent(absolutePath, 1);
-                    String mainName = FileUtil.mainName(agreedFile);
                     String targetPath = getBuiltInTargetAbsPath(agreedFile, genCfg, tableCfg, nzmbToDir);
                     Boolean aBoolean = isFm ?
                             FmUtils.renderToFile(parent, FileUtil.getName(absolutePath), BeanUtil.beanToMap(templateEnv), targetPath)

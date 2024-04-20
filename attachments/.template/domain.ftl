@@ -1,7 +1,7 @@
 <#include "环境变量辅助.ftl"/>
 package ${domainPackage};
 
-<#if isGenSwagger>
+<#if isGenSwagger! =="true">
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
@@ -17,14 +17,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-<#if isGenComment>
+<#if isGenComment! == "true">
 /**
  * `${domainChineseDescription}`实体类
  * @author ${author!}
  * @date ${dateTime!}
  */
 </#if>
-<#if isGenSwagger>
+<#if isGenSwagger! == "true">
 @ApiModel(description = "`${domainChineseDescription}`实体类")
 </#if>
 @Data
@@ -34,7 +34,7 @@ import lombok.experimental.Accessors;
 @Table(name = "${tableName}")
 public class ${domainName} {
 <#list columns as column>
-    <#if (column.columnComment?trim!"")?length > 0>
+    <#if ((column.columnComment?trim!"")?length > 0)>
     /**
      * ${column.columnComment}
      */
@@ -46,7 +46,7 @@ public class ${domainName} {
     <#else>
     @Column(name = "${column.columnName}")
     </#if>
-    <#if isGenSwagger>
+    <#if isGenSwagger! == "true">
     @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
     </#if>
     private ${column.javaTypeClassName} ${column.javaName};
