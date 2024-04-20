@@ -20,6 +20,8 @@ import lombok.experimental.Accessors;
 <#if isGenComment>
 /**
  * `${domainChineseDescription}`实体类
+ * @author ${author!}
+ * @date ${dateTime!}
  */
 </#if>
 <#if isGenSwagger>
