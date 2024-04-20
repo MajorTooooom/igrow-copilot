@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.system.SystemUtil;
@@ -26,6 +25,8 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -50,6 +51,9 @@ public class OptService {
         templateEnv.setColumns(columnCfgs);
         templateEnv.setDateTime(DateUtil.now());
         templateEnv.setAuthor(genSysUserService.selectByPrimaryKey(tableCfg.getUserId()).getUsername());
+        // 需要记录全部的javaType,用于生成import语句
+        List<String> javaTypes = new ArrayList<>(columnCfgs.stream().map(c -> c.getJavaType()).collect(Collectors.toSet()));
+        templateEnv.setJavaTypes(javaTypes);
         //
         return templateEnv;
     }

@@ -38,4 +38,5 @@ public class TemplateEnvDTO {
     // 扩展
     private String author;
     private String dateTime;
+    private List<String> javaTypes;
 }
