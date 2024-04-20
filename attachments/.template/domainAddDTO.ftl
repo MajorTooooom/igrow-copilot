@@ -41,5 +41,8 @@ public class ${domainName}AddDTO {
     @${((column.javaType?trim!"") == "java.lang.String")?then("NotBlank","NotNull")}(message = "${((column.columnValidationComment?trim!"")?length > 0)?then(column.columnValidationComment, column.javaName)}不能为空")
     private ${column.javaTypeClassName} ${column.javaName};
     </#if>
+    <#if column?has_next>
+
+    </#if>
 </#list>
 }
