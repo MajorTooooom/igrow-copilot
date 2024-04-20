@@ -34,7 +34,6 @@ import lombok.experimental.Accessors;
 @Table(name = "${tableName}")
 public class ${domainName} {
 <#list columns as column>
-    <#--字段的备注是否非空-->
     <#if (column.columnComment?trim!"")?length > 0>
     /**
      * ${column.columnComment}
@@ -51,33 +50,5 @@ public class ${domainName} {
     @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
     </#if>
     private ${column.javaTypeClassName} ${column.javaName};
-
-    /**
-     * 姓名
-     */
-    @Column(name = "`name`")
-    @ApiModelProperty(value = "姓名")
-    private String name;
-
-    /**
-     * 年龄
-     */
-    @Column(name = "age")
-    @ApiModelProperty(value = "年龄")
-    private Integer age;
-
-    /**
-     * 余额
-     */
-    @Column(name = "balance")
-    @ApiModelProperty(value = "余额")
-    private Long balance;
-
-    /**
-     * 生日
-     */
-    @Column(name = "birthday")
-    @ApiModelProperty(value = "生日")
-    private Date birthday;
 </#list>
 }
