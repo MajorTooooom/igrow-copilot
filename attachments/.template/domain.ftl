@@ -50,5 +50,8 @@ public class ${domainName} {
     @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
     </#if>
     private ${column.javaTypeClassName} ${column.javaName};
+    <#if column?has_next>
+
+    </#if>
 </#list>
 }
