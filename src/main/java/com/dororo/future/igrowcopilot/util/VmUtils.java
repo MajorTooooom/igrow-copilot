@@ -29,6 +29,6 @@ public class VmUtils {
 
     public static Boolean renderToFile(String parent, String mainName, Map<String, Object> stringObjectMap, String targetPath) {
         // TODO
-        return null;
+        throw new UnsupportedOperationException("Velocity Not implemented yet");
     }
 }
