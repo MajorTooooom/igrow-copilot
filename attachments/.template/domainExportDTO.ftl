@@ -1,41 +1,36 @@
-package com.zhien.igrow.dto;
+<#include "环境变量辅助.ftl"/>
+package ${dtoPackage};
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+<#if isGenSwagger! =="true">
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+</#if>
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+<#list javaTypes as javaType>
+import ${javaType};
+</#list>
 
 /**
- * 条件分页查询或导出rowDTO
+* 导出`${domainChineseDescription}`DTO
  */
-@ApiModel(description = "学员培训审核查询或导出rowDTO")
+<#if isGenSwagger! == "true">
+@ApiModel(description = "导出`${domainChineseDescription}`")
+</#if>
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AaaaBbbbCcccExportDTO {
-    @ApiModelProperty(value = "主键ID")
-    @ExcelProperty(value = "主键ID")
-    private Integer id;
-
-    @ApiModelProperty(value = "姓名")
-    @ExcelProperty(value = "姓名")
-    private String name;
-
-    @ApiModelProperty(value = "年龄")
-    @ExcelProperty(value = "年龄")
-    private Integer age;
-
-    @ApiModelProperty(value = "余额")
-    @ExcelProperty(value = "余额")
-    private Long balance;
-
-    @ApiModelProperty(value = "生日")
-    @ExcelProperty(value = "生日")
-    private Date birthday;
+public class ${domainName}ExportDTO {
+<#list columns as column>
+    <#if isGenSwagger! == "true">
+    @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
+    </#if>
+    @ExcelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
+    private ${column.javaTypeClassName} ${column.javaName};
+</#list>
 }
