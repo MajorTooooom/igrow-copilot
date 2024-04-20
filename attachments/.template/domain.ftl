@@ -48,9 +48,9 @@ public class ${domainName} {
     @Column(name = "${column.columnName}")
     </#if>
     <#if isGenSwagger>
-    @ApiModelProperty(value = "${column.columnComment!}")
+    @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
     </#if>
-    private Integer id;
+    private ${column.javaTypeClassName} ${column.javaName};
 
     /**
      * 姓名
