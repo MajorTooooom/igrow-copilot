@@ -1,4 +1,5 @@
-package com.zhien.igrow.eelistener;
+<#include "环境变量辅助.ftl"/>
+package ${easyExcelListenerPackage};
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
@@ -8,8 +9,8 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.CellExtra;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.zhien.common.utils.spring.SpringUtils;
-import com.zhien.igrow.dto.AaaaBbbbCcccImportDTO;
-import com.zhien.igrow.service.AaaaBbbbCcccService;
+import ${dtoPackage}.${domainName}ImportDTO;
+import ${servicePackage}.${domainName}Service;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,21 +21,21 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * AaaaBbbbCccc导入监听器,不能被Spring管理,需要手动new,每次处理新excel需要new一个新的对象
+ * ${domainName}导入监听器,不能被Spring管理,需要手动new,每次处理新excel需要new一个新的对象
  */
 @Slf4j
 @Getter
 @Setter
-public class AaaaBbbbCcccImportListener implements ReadListener<AaaaBbbbCcccImportDTO> {
+public class ${domainName}ImportListener implements ReadListener<${domainName}ImportDTO> {
     private static final int MAX_TRY_COUNT = 3000;
     private static final int BATCH_COUNT = 1000;
-    private List<AaaaBbbbCcccImportDTO> rows = new ArrayList<>(BATCH_COUNT);
+    private List<${domainName}ImportDTO> rows = new ArrayList<>(BATCH_COUNT);
     // 是否继续收集,超出的行数不再业务处理但是EasyExcel会继续读行,才能最后触发`doAfterAllAnalysed`;如果设置`hasNext()`返回false,则不会最终到达`doAfterAllAnalysed`
     private boolean handleThisRow = true;
 
     private ImportResultDTO importResultDTO;
 
-    public AaaaBbbbCcccImportListener(ImportResultDTO importResultDTO) {
+    public ${domainName}ImportListener(ImportResultDTO importResultDTO) {
         this.importResultDTO = importResultDTO;
     }
 
@@ -65,7 +66,7 @@ public class AaaaBbbbCcccImportListener implements ReadListener<AaaaBbbbCcccImpo
     }
 
     @Override
-    public void invoke(AaaaBbbbCcccImportDTO data, AnalysisContext context) {
+    public void invoke(${domainName}ImportDTO data, AnalysisContext context) {
         Integer rowIndex = context.readRowHolder().getRowIndex();
         try {
             // (1)如果前三个空格都是空,则认为是空行(EasyExcel不认为是空行,所以需要自己判断)
@@ -114,7 +115,7 @@ public class AaaaBbbbCcccImportListener implements ReadListener<AaaaBbbbCcccImpo
             data.setRowNum(rowIndex + 1);
 
             // 业务处理
-            SpringUtils.getBean(AaaaBbbbCcccService.class).handleSingleExcelRow(data, importResultDTO);
+            SpringUtils.getBean(${domainName}Service.class).handleSingleExcelRow(data, importResultDTO);
             importResultDTO.incrementAndGetSuccessNum();
         } catch (Exception e) {
             importResultDTO.incrementAndGetFailNum();
