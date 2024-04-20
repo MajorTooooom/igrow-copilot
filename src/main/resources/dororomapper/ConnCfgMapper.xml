@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dororo.future.igrowcopilot.mapper.ConnCfgMapper">
+    <resultMap id="BaseResultMap" type="com.dororo.future.igrowcopilot.domain.ConnCfg">
+        <!--@Table t_conn_cfg-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="cfg_name" jdbcType="LONGVARCHAR" property="cfgName"/>
+        <result column="url" jdbcType="LONGVARCHAR" property="url"/>
+        <result column="user_name" jdbcType="LONGVARCHAR" property="userName"/>
+        <result column="password" jdbcType="LONGVARCHAR" property="password"/>
+        <result column="is_deleted" jdbcType="LONGVARCHAR" property="isDeleted"/>
+        <result column="create_time" jdbcType="LONGVARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="LONGVARCHAR" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        user_id,
+        cfg_name,
+        url,
+        user_name,
+        "password",
+        is_deleted,
+        create_time,
+        update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_conn_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_conn_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.ConnCfg" useGeneratedKeys="false">
+        insert into t_conn_cfg (user_id, cfg_name, url,
+                                user_name, "password", is_deleted,
+                                create_time, update_time)
+        values (#{userId,jdbcType=INTEGER}, #{cfgName,jdbcType=LONGVARCHAR}, #{url,jdbcType=LONGVARCHAR},
+                #{userName,jdbcType=LONGVARCHAR}, #{password,jdbcType=LONGVARCHAR}, #{isDeleted,jdbcType=LONGVARCHAR},
+                #{createTime,jdbcType=LONGVARCHAR}, #{updateTime,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.ConnCfg" useGeneratedKeys="false">
+        insert into t_conn_cfg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="cfgName != null">
+                cfg_name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                "password",
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="cfgName != null">
+                #{cfgName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dororo.future.igrowcopilot.domain.ConnCfg">
+        update t_conn_cfg
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="cfgName != null">
+                cfg_name = #{cfgName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="password != null">
+                "password" = #{password,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dororo.future.igrowcopilot.domain.ConnCfg">
+        update t_conn_cfg
+        set user_id     = #{userId,jdbcType=INTEGER},
+            cfg_name    = #{cfgName,jdbcType=LONGVARCHAR},
+            url         = #{url,jdbcType=LONGVARCHAR},
+            user_name   = #{userName,jdbcType=LONGVARCHAR},
+            "password"  = #{password,jdbcType=LONGVARCHAR},
+            is_deleted  = #{isDeleted,jdbcType=LONGVARCHAR},
+            create_time = #{createTime,jdbcType=LONGVARCHAR},
+            update_time = #{updateTime,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="getLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ROWID()
+    </select>
+
+    <!--auto generated by MybatisCodeHelper on 2024-04-14-->
+    <select id="findByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_conn_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="cfgName != null">
+                and cfg_name = #{cfgName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="url != null">
+                and url = #{url,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="userName != null">
+                and user_name = #{userName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="password != null">
+                and `password` = #{password,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--auto generated by MybatisCodeHelper on 2024-04-15-->
+    <select id="selectByUserIdAndIdIn" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_conn_cfg
+        where user_id = #{userId,jdbcType=INTEGER}
+          and id in
+        <foreach item="item" index="index" collection="idCollection"
+                 open="(" separator="," close=")">
+            #{item,jdbcType=INTEGER}
+        </foreach>
+    </select>
+
+    <!--auto generated by MybatisCodeHelper on 2024-04-15-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_conn_cfg
+    </select>
+</mapper>

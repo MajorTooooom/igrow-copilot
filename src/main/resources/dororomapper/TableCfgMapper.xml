@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dororo.future.igrowcopilot.mapper.TableCfgMapper">
+    <resultMap id="BaseResultMap" type="com.dororo.future.igrowcopilot.domain.TableCfg">
+        <!--@mbg.generated-->
+        <!--@Table t_table_cfg-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="table_cfg_name" jdbcType="LONGVARCHAR" property="tableCfgName"/>
+        <result column="conn_url" jdbcType="LONGVARCHAR" property="connUrl"/>
+        <result column="conn_user_name" jdbcType="LONGVARCHAR" property="connUserName"/>
+        <result column="conn_password" jdbcType="LONGVARCHAR" property="connPassword"/>
+        <result column="table_schema" jdbcType="LONGVARCHAR" property="tableSchema"/>
+        <result column="table_name" jdbcType="LONGVARCHAR" property="tableName"/>
+        <result column="domain_name" jdbcType="LONGVARCHAR" property="domainName"/>
+        <result column="domain_zn_name" jdbcType="LONGVARCHAR" property="domainZnName"/>
+        <result column="create_time" jdbcType="LONGVARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="LONGVARCHAR" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        user_id,
+        table_cfg_name,
+        conn_url,
+        conn_user_name,
+        conn_password,
+        table_schema,
+        "table_name",
+        domain_name,
+        domain_zn_name,
+        create_time,
+        update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_table_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete
+        from t_table_cfg
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.TableCfg" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_table_cfg (user_id, table_cfg_name, conn_url,
+                                 conn_user_name, conn_password, table_schema,
+                                 "table_name", domain_name, domain_zn_name,
+                                 create_time, update_time)
+        values (#{userId,jdbcType=INTEGER}, #{tableCfgName,jdbcType=LONGVARCHAR}, #{connUrl,jdbcType=LONGVARCHAR},
+                #{connUserName,jdbcType=LONGVARCHAR}, #{connPassword,jdbcType=LONGVARCHAR}, #{tableSchema,jdbcType=LONGVARCHAR},
+                #{tableName,jdbcType=LONGVARCHAR}, #{domainName,jdbcType=LONGVARCHAR}, #{domainZnName,jdbcType=LONGVARCHAR},
+                #{createTime,jdbcType=LONGVARCHAR}, #{updateTime,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.TableCfg" useGeneratedKeys="false">
+        <!--@mbg.generated-->
+        insert into t_table_cfg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="tableCfgName != null">
+                table_cfg_name,
+            </if>
+            <if test="connUrl != null">
+                conn_url,
+            </if>
+            <if test="connUserName != null">
+                conn_user_name,
+            </if>
+            <if test="connPassword != null">
+                conn_password,
+            </if>
+            <if test="tableSchema != null">
+                table_schema,
+            </if>
+            <if test="tableName != null">
+                "table_name",
+            </if>
+            <if test="domainName != null">
+                domain_name,
+            </if>
+            <if test="domainZnName != null">
+                domain_zn_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="tableCfgName != null">
+                #{tableCfgName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="connUrl != null">
+                #{connUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="connUserName != null">
+                #{connUserName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="connPassword != null">
+                #{connPassword,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableSchema != null">
+                #{tableSchema,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableName != null">
+                #{tableName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="domainName != null">
+                #{domainName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="domainZnName != null">
+                #{domainZnName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dororo.future.igrowcopilot.domain.TableCfg">
+        <!--@mbg.generated-->
+        update t_table_cfg
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="tableCfgName != null">
+                table_cfg_name = #{tableCfgName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="connUrl != null">
+                conn_url = #{connUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="connUserName != null">
+                conn_user_name = #{connUserName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="connPassword != null">
+                conn_password = #{connPassword,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableSchema != null">
+                table_schema = #{tableSchema,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tableName != null">
+                "table_name" = #{tableName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="domainName != null">
+                domain_name = #{domainName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="domainZnName != null">
+                domain_zn_name = #{domainZnName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dororo.future.igrowcopilot.domain.TableCfg">
+        <!--@mbg.generated-->
+        update t_table_cfg
+        set user_id        = #{userId,jdbcType=INTEGER},
+            table_cfg_name = #{tableCfgName,jdbcType=LONGVARCHAR},
+            conn_url       = #{connUrl,jdbcType=LONGVARCHAR},
+            conn_user_name = #{connUserName,jdbcType=LONGVARCHAR},
+            conn_password  = #{connPassword,jdbcType=LONGVARCHAR},
+            table_schema   = #{tableSchema,jdbcType=LONGVARCHAR},
+            "table_name"   = #{tableName,jdbcType=LONGVARCHAR},
+            domain_name    = #{domainName,jdbcType=LONGVARCHAR},
+            domain_zn_name = #{domainZnName,jdbcType=LONGVARCHAR},
+            create_time    = #{createTime,jdbcType=LONGVARCHAR},
+            update_time    = #{updateTime,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="getLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ROWID()
+    </select>
+
+    <!--auto generated by MybatisCodeHelper on 2024-04-15-->
+    <select id="findByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_table_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="tableCfgName != null">
+                and table_cfg_name = #{tableCfgName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="connUrl != null">
+                and conn_url = #{connUrl,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="connUserName != null">
+                and conn_user_name = #{connUserName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="connPassword != null">
+                and conn_password = #{connPassword,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableSchema != null">
+                and table_schema = #{tableSchema,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="tableName != null">
+                and `table_name` = #{tableName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="domainName != null">
+                and domain_name = #{domainName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="domainZnName != null">
+                and domain_zn_name = #{domainZnName,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="pageFindByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_table_cfg
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="tableCfgName != null">
+                and table_cfg_name LIKE CONCAT('%', #{tableCfgName,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="connUrl != null">
+                and conn_url LIKE CONCAT('%', #{connUrl,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="connUserName != null">
+                and conn_user_name LIKE CONCAT('%', #{connUserName,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="connPassword != null">
+                and conn_password LIKE CONCAT('%', #{connPassword,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="tableSchema != null">
+                and table_schema LIKE CONCAT('%', #{tableSchema,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="tableName != null">
+                and `table_name` LIKE CONCAT('%', #{tableName,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="domainName != null">
+                and domain_name LIKE CONCAT('%', #{domainName,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="domainZnName != null">
+                and domain_zn_name LIKE CONCAT('%', #{domainZnName,jdbcType=LONGVARCHAR}, '%')
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>
