@@ -1,4 +1,4 @@
-package com.zhien.igrow.controller;
+package ${controllerPackage};
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
@@ -6,9 +6,13 @@ import cn.hutool.json.JSONUtil;
 import com.alibaba.excel.EasyExcel;
 import com.zhien.common.core.controller.BaseController;
 import com.zhien.common.core.domain.R;
-import com.zhien.igrow.domain.AaaaBbbbCccc;
-import com.zhien.igrow.dto.*;
-import com.zhien.igrow.service.AaaaBbbbCcccService;
+import ${domainPackage}.${domainName};
+import ${dtoPackage}.${domainName}AddDTO;
+import ${dtoPackage}.${domainName}ExportDTO;
+import ${dtoPackage}.${domainName}ImportDTO;
+import ${dtoPackage}.${domainName}PageDTO;
+import ${dtoPackage}.${domainName}UpdateDTO;
+import ${servicePackage}.${domainName}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
