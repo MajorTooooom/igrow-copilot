@@ -1,3 +1,4 @@
+<#include "环境变量辅助.ftl"/>
 package ${controllerPackage};
 
 import cn.hutool.core.date.DateUtil;
@@ -27,54 +28,55 @@ import java.net.URLEncoder;
 import java.util.List;
 
 /**
- * 学员培训审核表(aaaa_bbbb_cccc)表控制层
+ * `${domainChineseDescription}`控制器
  *
- * @author xxxxx
+ * @author ${author!}
+ * @date ${dateTime!}
  */
 @RestController
-@Api(tags = "学员培训审核表")
-@RequestMapping("/aaaa_bbbb_cccc")
-public class AaaaBbbbCcccController extends BaseController {
+@Api(tags = "${domainChineseDescription}")
+@RequestMapping("/${domainName?uncap_first}")
+public class ${domainName}Controller extends BaseController {
     /**
      * 服务对象
      */
     @Autowired
-    private AaaaBbbbCcccService aaaaBbbbCcccService;
+    private ${domainName}Service ${domainName?uncap_first}Service;
 
     @PostMapping("/add")
     @ApiOperation(value = "新增", notes = "新增")
-    public R add(@RequestBody @Validated AaaaBbbbCcccAddDTO addDTO) {
-        aaaaBbbbCcccService.add(addDTO);
+    public R add(@RequestBody @Validated ${domainName}AddDTO addDTO) {
+        ${domainName?uncap_first}Service.add(addDTO);
         return R.ok();
     }
 
     @GetMapping("/delete/{id}")
     @ApiOperation(value = "删除", notes = "删除")
     public R delete(@PathVariable(value = "id") Integer id) {
-        aaaaBbbbCcccService.deleteByPrimaryKey(id);
+        ${domainName?uncap_first}Service.deleteByPrimaryKey(id);
         return R.ok();
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新", notes = "更新")
-    public R update(@RequestBody @Validated AaaaBbbbCcccUpdateDTO updateDTO) {
-        aaaaBbbbCcccService.update(updateDTO);
+    public R update(@RequestBody @Validated ${domainName}UpdateDTO updateDTO) {
+        ${domainName?uncap_first}Service.update(updateDTO);
         return R.ok();
     }
 
     @GetMapping("/get/{id}")
     @ApiOperation(value = "查询", notes = "查询")
     public R get(@PathVariable(value = "id") Integer id) {
-        AaaaBbbbCccc aaaaBbbbCccc = aaaaBbbbCcccService.selectByPrimaryKey(id);
-        return R.data(aaaaBbbbCccc);
+        ${domainName} ${domainName?uncap_first} = ${domainName?uncap_first}Service.selectByPrimaryKey(id);
+        return R.data(${domainName?uncap_first});
     }
 
     @PostMapping("/page")
     @ApiOperation(value = "条件分页", notes = "条件分页")
-    public R page(@RequestBody @Validated AaaaBbbbCcccPageDTO pageDTO) {
+    public R page(@RequestBody @Validated ${domainName}PageDTO pageDTO) {
         // pageDTO.setIsDelete(YesNoEnum.NO.value + "");
         startPage();
-        List<AaaaBbbbCcccExportDTO> list = aaaaBbbbCcccService.conditionalQueryPage(pageDTO);
+        List<${domainName}ExportDTO> list = ${domainName?uncap_first}Service.conditionalQueryPage(pageDTO);
         return R.page(list);
     }
 
@@ -83,16 +85,16 @@ public class AaaaBbbbCcccController extends BaseController {
      */
     @PostMapping("/export")
     @ApiOperation(value = "导出", notes = "导出")
-    public void export(@RequestBody @Validated AaaaBbbbCcccPageDTO pageDTO, HttpServletResponse response) throws IOException {
+    public void export(@RequestBody @Validated ${domainName}PageDTO pageDTO, HttpServletResponse response) throws IOException {
         // pageDTO.setIsDelete(YesNoEnum.NO.value + "");
-        List<AaaaBbbbCcccExportDTO> list = aaaaBbbbCcccService.conditionalQueryAllPage(pageDTO);
+        List<${domainName}ExportDTO> list = ${domainName?uncap_first}Service.conditionalQueryAllPage(pageDTO);
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
-            String businessName = StrUtil.format("{}_{}", "学员培训审核", DateUtil.format(DateUtil.date(), "yyyyMMdd_HHmmss"));
+            String businessName = StrUtil.format("{}_{}", "${domainChineseDescription}", DateUtil.format(DateUtil.date(), "yyyyMMdd_HHmmss"));
             String fileName = URLEncoder.encode(businessName, "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
-            EasyExcel.write(response.getOutputStream(), AaaaBbbbCcccExportDTO.class).autoCloseStream(Boolean.FALSE).sheet("data").doWrite(list);
+            EasyExcel.write(response.getOutputStream(), ${domainName}ExportDTO.class).autoCloseStream(Boolean.FALSE).sheet("data").doWrite(list);
         } catch (Exception e) {
             response.reset();
             response.setContentType("application/json");
@@ -105,6 +107,6 @@ public class AaaaBbbbCcccController extends BaseController {
     @PostMapping("/import")
     @ApiOperation(value = "导入", notes = "导入")
     public R importExcel(@RequestParam("file") MultipartFile[] files) throws Exception {
-        return R.data(aaaaBbbbCcccService.importExcel(files));
+        return R.data(${domainName?uncap_first}Service.importExcel(files));
     }
 }
