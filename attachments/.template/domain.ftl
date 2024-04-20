@@ -41,10 +41,10 @@ public class ${domainName} {
     </#if>
     <#if column.columnKey!?has_content && column.columnKey == "PRI">
     @Id
-    @Column(name = "${requireBackQuote?then("`","")}${column.columnName}${requireBackQuote?then("`","")}")
+    @Column(name = "${column.requireBackQuote?then("`","")}${column.columnName}${column.requireBackQuote?then("`","")}")
     @GeneratedValue(generator = "JDBC")
     <#else>
-    @Column(name = "${requireBackQuote?then("`","")}${column.columnName}${requireBackQuote?then("`","")}")
+    @Column(name = "${column.requireBackQuote?then("`","")}${column.columnName}${column.requireBackQuote?then("`","")}")
     </#if>
     <#if isGenSwagger! == "true">
     @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}")
