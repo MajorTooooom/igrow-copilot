@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.system.SystemUtil;
@@ -52,7 +53,14 @@ public class OptService {
         templateEnv.setDateTime(DateUtil.now());
         templateEnv.setAuthor(genSysUserService.selectByPrimaryKey(tableCfg.getUserId()).getUsername());
         // 需要记录全部的javaType,用于生成import语句
-        List<String> javaTypes = new ArrayList<>(columnCfgs.stream().map(c -> c.getJavaType()).collect(Collectors.toSet()));
+        List<String> javaTypes = new ArrayList<>(columnCfgs.stream().map(c -> c.getJavaType())
+                .filter(StrUtil::isNotBlank)
+                .filter(jt -> {
+                    List<String> list = CollectionUtil.toList("java.lang.String", "java.lang.Integer");
+                    boolean equalsAny = StrUtil.equalsAny(jt, list.toArray(new String[0]));
+                    return !equalsAny;
+                })
+                .collect(Collectors.toSet()));
         templateEnv.setJavaTypes(javaTypes);
         //
         return templateEnv;

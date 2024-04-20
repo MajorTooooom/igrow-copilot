@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
 
-import java.util.Date;
+<#list javaTypes as javaType>
+import ${javaType};
+</#list>
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +16,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+<#if isGenComment>
 /**
  * 学员培训审核表
  */
+</#if>
 @ApiModel(description = "学员培训审核表")
 @Data
 @Builder
