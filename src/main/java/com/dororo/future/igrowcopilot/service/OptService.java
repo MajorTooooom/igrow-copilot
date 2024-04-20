@@ -45,6 +45,14 @@ public class OptService {
         TableCfg tableCfg = tableCfgService.selectByPrimaryKey(tableCfgId);
         GenCfg genCfg = genCfgService.selectByPrimaryKey(genCfgId);
         List<ColumnCfg> columnCfgs = columnCfgService.findByAll(ColumnCfg.builder().userId(tableCfg.getUserId()).tableCfgId(tableCfgId).build());
+        // 反引号
+        for (ColumnCfg columnCfg : columnCfgs) {
+            List<String> mysqlKeywords = CommonConstants.MYSQL_KEYWORDS;
+            boolean aCase = StrUtil.equalsAnyIgnoreCase(columnCfg.getColumnName(), mysqlKeywords.toArray(new String[0]));
+            columnCfg.setRequireBackQuote(aCase);
+        }
+
+
         //
         TemplateEnvDTO templateEnv = new TemplateEnvDTO();
         BeanUtil.copyProperties(tableCfg, templateEnv);

@@ -28,4 +28,6 @@ public class ColumnCfg extends ColumnMetadata {
     private String columnSwaggerComment;
     // 用于javax.validation生成的字段注释
     private String columnValidationComment;
+    // 是否需要反引号包裹,当字段名为数据库关键字时需要反引号包裹
+    private Boolean requireBackQuote;
 }
