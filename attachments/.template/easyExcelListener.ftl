@@ -114,6 +114,9 @@ public class ${domainName}ImportListener implements ReadListener<${domainName}Im
             // 行号
             data.setRowNum(rowIndex + 1);
 
+            // javaxValidation校验
+            javaxValidationVerifyWithThrow(data);
+
             // 业务处理
             SpringUtils.getBean(${domainName}Service.class).handleSingleExcelRow(data, importResultDTO);
             importResultDTO.incrementAndGetSuccessNum();
@@ -137,6 +140,17 @@ public class ${domainName}ImportListener implements ReadListener<${domainName}Im
     @Override
     public boolean hasNext(AnalysisContext context) {
         return true;
+    }
+
+    private void javaxValidationVerifyWithThrow(${domainName}ImportDTO data) {
+        Set<ConstraintViolation<${domainName}ImportDTO>> violations = SpringUtils.getBean(Validator.class).validate(data);
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<${domainName}ImportDTO> violation : violations) {
+                sb.append(violation.getMessage()).append(";");
+            }
+            throw new RuntimeException(sb.toString());
+        }
     }
 
     @Data

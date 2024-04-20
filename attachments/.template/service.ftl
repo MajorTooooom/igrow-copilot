@@ -1,4 +1,4 @@
-package com.zhien.igrow.service;
+package ${servicePackage};
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.convert.Convert;
@@ -11,15 +11,19 @@ import com.alibaba.excel.exception.ExcelCommonException;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.builder.ExcelReaderSheetBuilder;
 import com.github.pagehelper.PageHelper;
-import com.zhien.igrow.domain.AaaaBbbbCccc;
-import com.zhien.igrow.dto.*;
-import com.zhien.igrow.eelistener.AaaaBbbbCcccImportListener;
+import ${domainPackage}.${domainName};
+import ${dtoPackage}.${domainName}AddDTO;
+import ${dtoPackage}.${domainName}ExportDTO;
+import ${dtoPackage}.${domainName}ImportDTO;
+import ${dtoPackage}.${domainName}PageDTO;
+import ${dtoPackage}.${domainName}UpdateDTO;
+import ${easyExcelListenerPackage}.${domainName}ImportListener;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.zhien.igrow.mapper.AaaaBbbbCcccMapper;
+import ${mapperPackage}.${domainName}Mapper;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -29,45 +33,45 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class AaaaBbbbCcccService {
+public class ${domainName}Service {
     @Autowired
-    private AaaaBbbbCcccMapper aaaaBbbbCcccMapper;
+    private ${domainName}Mapper ${domainName?uncap_first}Mapper;
 
-    public void add(AaaaBbbbCcccAddDTO addDTO) {
-        AaaaBbbbCccc aaaaBbbbCccc = Convert.convert(AaaaBbbbCccc.class, addDTO);
-        int i = aaaaBbbbCcccMapper.insert(aaaaBbbbCccc);
+    public void add(${domainName}AddDTO addDTO) {
+        ${domainName} ${domainName?uncap_first} = Convert.convert(${domainName}.class, addDTO);
+        int i = ${domainName?uncap_first}Mapper.insert(${domainName?uncap_first});
         Assert.isTrue(i > 0, "新增失败");
     }
 
     public void deleteByPrimaryKey(Integer id) {
-        aaaaBbbbCcccMapper.deleteByPrimaryKey(id);
+        ${domainName?uncap_first}Mapper.deleteByPrimaryKey(id);
     }
 
-    public void update(AaaaBbbbCcccUpdateDTO updateDTO) {
-        AaaaBbbbCccc aaaaBbbbCccc = Convert.convert(AaaaBbbbCccc.class, updateDTO);
-        aaaaBbbbCcccMapper.updateByPrimaryKeySelective(aaaaBbbbCccc);
+    public void update(${domainName}UpdateDTO updateDTO) {
+        ${domainName} ${domainName?uncap_first} = Convert.convert(${domainName}.class, updateDTO);
+        ${domainName?uncap_first}Mapper.updateByPrimaryKeySelective(${domainName?uncap_first});
     }
 
-    public AaaaBbbbCccc selectByPrimaryKey(Integer id) {
-        return aaaaBbbbCcccMapper.selectByPrimaryKey(id);
+    public ${domainName} selectByPrimaryKey(Integer id) {
+        return ${domainName?uncap_first}Mapper.selectByPrimaryKey(id);
     }
 
-    public List<AaaaBbbbCcccExportDTO> conditionalQueryPage(AaaaBbbbCcccPageDTO pageDTO) {
+    public List<${domainName}ExportDTO> conditionalQueryPage(${domainName}PageDTO pageDTO) {
         // TODO 通常需要改写
-        List<AaaaBbbbCccc> select = aaaaBbbbCcccMapper.select(Convert.convert(AaaaBbbbCccc.class, pageDTO));
-        List<AaaaBbbbCcccExportDTO> collect = select.stream().map(s -> Convert.convert(AaaaBbbbCcccExportDTO.class, s)).collect(Collectors.toList());
+        List<${domainName}> select = ${domainName?uncap_first}Mapper.select(Convert.convert(${domainName}.class, pageDTO));
+        List<${domainName}ExportDTO> collect = select.stream().map(s -> Convert.convert(${domainName}ExportDTO.class, s)).collect(Collectors.toList());
         return collect;
     }
 
-    public List<AaaaBbbbCcccExportDTO> conditionalQueryAllPage(AaaaBbbbCcccPageDTO pageDTO) {
+    public List<${domainName}ExportDTO> conditionalQueryAllPage(${domainName}PageDTO pageDTO) {
         int pageNum = 1;
         final int pageSize = 1000;
         TimeInterval overtimeProtectionTimer = DateUtil.timer();
         long maxSecond = 30;
-        List<AaaaBbbbCcccExportDTO> result = new ArrayList<>();
+        List<${domainName}ExportDTO> result = new ArrayList<>();
         while (true) {
             PageHelper.startPage(pageNum, pageSize);
-            List<AaaaBbbbCcccExportDTO> pageResult = conditionalQueryPage(pageDTO);
+            List<${domainName}ExportDTO> pageResult = conditionalQueryPage(pageDTO);
             result.addAll(pageResult);
             if (CollectionUtil.isEmpty(pageResult) || pageResult.size() < pageSize) {
                 break;
@@ -81,10 +85,10 @@ public class AaaaBbbbCcccService {
         return result;
     }
 
-    public Map<String, AaaaBbbbCcccImportListener.ImportResultDTO> importExcel(MultipartFile[] files) {
-        Map<String, AaaaBbbbCcccImportListener.ImportResultDTO> result = new HashMap<>();
+    public Map<String, ${domainName}ImportListener.ImportResultDTO> importExcel(MultipartFile[] files) {
+        Map<String, ${domainName}ImportListener.ImportResultDTO> result = new HashMap<>();
         for (MultipartFile file : files) {
-            AaaaBbbbCcccImportListener.ImportResultDTO importResultDTO = new AaaaBbbbCcccImportListener.ImportResultDTO();
+            ${domainName}ImportListener.ImportResultDTO importResultDTO = new ${domainName}ImportListener.ImportResultDTO();
             try {
                 importResultDTO.setFileName(file.getOriginalFilename());
                 handleSingleExcel(file, importResultDTO);
@@ -97,10 +101,10 @@ public class AaaaBbbbCcccService {
     }
 
     @SneakyThrows
-    public void handleSingleExcel(MultipartFile file, AaaaBbbbCcccImportListener.ImportResultDTO importResultDTO) {
+    public void handleSingleExcel(MultipartFile file, ${domainName}ImportListener.ImportResultDTO importResultDTO) {
         // 基于EasyExcel监听器
-        AaaaBbbbCcccImportListener listener = new AaaaBbbbCcccImportListener(importResultDTO);
-        ExcelReaderBuilder read = EasyExcel.read(file.getInputStream(), AaaaBbbbCcccImportDTO.class, listener);
+        ${domainName}ImportListener listener = new ${domainName}ImportListener(importResultDTO);
+        ExcelReaderBuilder read = EasyExcel.read(file.getInputStream(), ${domainName}ImportDTO.class, listener);
         ExcelReaderSheetBuilder sheet = null;
         try {
             sheet = read.sheet();
@@ -115,7 +119,7 @@ public class AaaaBbbbCcccService {
         sheet.doRead();
     }
 
-    public void handleSingleExcelRow(AaaaBbbbCcccImportDTO row, AaaaBbbbCcccImportListener.ImportResultDTO importResultDTO) {
+    public void handleSingleExcelRow(${domainName}ImportDTO row, ${domainName}ImportListener.ImportResultDTO importResultDTO) {
         // LoginUserDTO currentUser = AuthUserUtils.getCurrentUser();
         // Assert.notNull(currentUser, "当前登录用户不存在");
 
@@ -124,8 +128,8 @@ public class AaaaBbbbCcccService {
         // TODO 具体的业务逻辑校验,具体根据业务需求编写
 
         // TODO excel行转数据库实体     
-        AaaaBbbbCccc aaaaBbbbCccc = Convert.convert(AaaaBbbbCccc.class, row);
-        aaaaBbbbCcccMapper.insert(aaaaBbbbCccc);
+        ${domainName} ${domainName?uncap_first} = Convert.convert(${domainName}.class, row);
+        ${domainName?uncap_first}Mapper.insert(${domainName?uncap_first});
 
     }
 }
