@@ -1,42 +1,43 @@
-package com.zhien.igrow.dto;
+<#include "环境变量辅助.ftl"/>
+package ${dtoPackage};
 
+<#if isGenSwagger! =="true">
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+</#if>
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+<#list javaTypes as javaType>
+import ${javaType};
+</#list>
 
 /**
- * 更新学员培训审核DTO
+ * 更新`${domainChineseDescription}`DTO
  */
-@ApiModel(description = "更新学员培训审核")
+<#if isGenSwagger! == "true">
+@ApiModel(description = "更新`${domainChineseDescription}`")
+</#if>
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AaaaBbbbCcccUpdateDTO {
-    @ApiModelProperty(value = "主键ID", required = true)
-    @NotNull(message = "主键ID不能为空")
-    private Integer id;
+public class ${domainName}UpdateDTO {
+<#list columns as column>
+    <#if isGenSwagger! == "true">
+    @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}"${(column.columnKey!?has_content && column.columnKey == "PRI")?then(", required = true","")})
+    </#if>
+    @${((column.javaType?trim!"") == "java.lang.String")?then("NotBlank","NotNull")}(message = "${((column.columnValidationComment?trim!"")?length > 0)?then(column.columnValidationComment, column.javaName)}不能为空")
+    private ${column.javaTypeClassName} ${column.javaName};
+    <#if column?has_next>
 
-    @ApiModelProperty(value = "姓名")
-    private String name;
-
-    @ApiModelProperty(value = "年龄")
-    private Integer age;
-
-    @ApiModelProperty(value = "余额")
-    private Long balance;
-
-    @ApiModelProperty(value = "生日")
-    private Date birthday;
+    </#if>
+</#list>
 }
