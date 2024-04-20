@@ -1,12 +1,14 @@
-package com.zhien.igrow.dto;
+<#include "环境变量辅助.ftl"/>
+package ${dtoPackage};
 
+<#if isGenSwagger! =="true">
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+</#if>
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -14,34 +16,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+<#list javaTypes as javaType>
+import ${javaType};
+</#list>
 
 /**
- * 新增学员培训审核DTO
- */
-@ApiModel(description = "新增学员培训审核")
+* 新增`${domainChineseDescription}`DTO
+*/
+<#if isGenSwagger! == "true">
+@ApiModel(description = "新增`${domainChineseDescription}`")
+</#if>
 @Data
-@Accessors(chain = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AaaaBbbbCcccAddDTO {
-    // @ApiModelProperty(value = "主键ID")
+public class ${domainName}AddDTO {
+<#list columns as column>
+    <#if column.columnKey!?has_content && column.columnKey == "PRI">
     // private Integer id;
-
-    @ApiModelProperty(value = "姓名", required = true)
+    <#else>
+        <#if isGenSwagger! == "true">
+    @ApiModelProperty(value = "${((column.columnSwaggerComment?trim!"")?length > 0)?then(column.columnSwaggerComment, column.javaName)}", required = true)
+        </#if>
     @NotBlank(message = "姓名不能为空")
     private String name;
-
-    @ApiModelProperty(value = "年龄", required = true)
-    @NotNull(message = "年龄不能为空")
-    private Integer age;
-
-    @ApiModelProperty(value = "余额", required = true)
-    @NotNull(message = "余额不能为空")
-    private Long balance;
-
-    @ApiModelProperty(value = "生日", required = true)
-    @NotNull(message = "生日不能为空")
-    private Date birthday;
+    </#if>
+</#list>
 }
