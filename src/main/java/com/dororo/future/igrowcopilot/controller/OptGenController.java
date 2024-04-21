@@ -126,8 +126,14 @@ public class OptGenController extends CopilotBaseController {
 
         // 确保 ZIP 文件已经生成
         ZipFile zip = new ZipFile(zipFile);
-        zip.addFolder(FileUtil.file(baseDir, missionId, CommonConstants.NZMB_RESULT));
-        zip.addFolder(FileUtil.file(baseDir, missionId, CommonConstants.UPLOAD_RESULT));
+
+        File nzmbDir = FileUtil.file(baseDir, missionId, CommonConstants.NZMB_RESULT);
+        FileUtil.mkdir(nzmbDir);
+        zip.addFolder(nzmbDir);
+
+        File uploadDir = FileUtil.file(baseDir, missionId, CommonConstants.UPLOAD_RESULT);
+        FileUtil.mkdir(uploadDir);
+        zip.addFolder(uploadDir);
 
         // 设置 HTTP 响应头
         response.setContentType("application/zip");

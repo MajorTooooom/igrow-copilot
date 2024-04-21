@@ -54,7 +54,7 @@ export function renderToDirFn(data) {
 export function downloadZipFn(missionId) {
     return axios({
         method: 'post',
-        url: `/optGen/downloadZip`,
+        url: process.env.VUE_APP_BASE_API + "/optGen/downloadZip",
         params: {missionId}, // 使用 params 发送查询参数
         responseType: 'blob',  // 确保响应被处理为二进制数据
         headers: {
