@@ -3,6 +3,7 @@ package com.dororo.future.igrowcopilot.filter;
 import cn.hutool.core.util.StrUtil;
 import com.dororo.future.igrowcopilot.domain.GenSysUser;
 import com.dororo.future.igrowcopilot.service.GenSysUserService;
+import com.dororo.future.igrowcopilot.util.FilterUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OptionalDataException;
+import java.security.PrivateKey;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -25,13 +30,16 @@ public class UserIdFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestURI = request.getRequestURI();
+        // 静态资源不需要校验用户ID
+        if (FilterUtils.filter(requestURI)) {
+            return true;
+        }
         // 登陆相关接口不需要校验用户ID
         if (StrUtil.startWith(requestURI, "/login")) {
             return true;
         }
         return false;
     }
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

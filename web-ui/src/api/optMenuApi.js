@@ -70,3 +70,10 @@ export function downloadZipFn(missionId) {
         console.error('Error downloading zip file:', error);
     });
 }
+
+export function getLocalHostModeFn() {
+    return request({
+        url: '/optGen/getLocalHostMode',
+        method: 'get',
+    })
+}

@@ -1,11 +1,12 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" class="login-form" @submit.native.prevent="login">
-      <el-form-item label="账号" required>
-        <el-input v-model="credentials.username" placeholder="Enter your username"></el-input>
+      <h1 style="text-align: center;">IGrowGen</h1>
+      <el-form-item label="" required>
+        <el-input v-model="credentials.username" placeholder="账号"></el-input>
       </el-form-item>
-      <el-form-item label="密码" required>
-        <el-input v-model="credentials.password" autocomplete="off" placeholder="Enter your password" type="password"></el-input>
+      <el-form-item label="" required>
+        <el-input v-model="credentials.password" placeholder="密码" autocomplete="off" type="password"></el-input>
       </el-form-item>
       <el-form-item>
         <div style="display: inline-block; width: 80%;">

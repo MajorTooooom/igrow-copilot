@@ -74,13 +74,22 @@
 import {Notification, MessageBox, Message, Loading} from 'element-ui';
 import request from '@/utils/request';
 import * as CommonConsts from '@/config/CommonConsts';
-import {getTableCfgOptionsFn, getGenCfgOptionsFn, renderToStringFn, renderToZipFn, renderToDirFn, downloadZipFn} from '@/api/optMenuApi';
+import {
+  getTableCfgOptionsFn,
+  getGenCfgOptionsFn,
+  renderToStringFn,
+  renderToZipFn,
+  renderToDirFn,
+  downloadZipFn,
+  getLocalHostModeFn,
+} from '@/api/optMenuApi';
 
 export default {
   name: "OptMenuPage",
   components: {},
   data() {
     return {
+      localHostMode: false,
       envCfgFormVo: {
         tableCfgId: '',
         genCfgId: '',
@@ -199,6 +208,10 @@ export default {
       });
     },
     beforeRenderToDir() {
+      if (!this.localHostMode) {
+        Message.warning('服务器模式下不支持此操作');
+        return false;
+      }
       if (!this.verifyBeforeRender()) {
         return false;
       }
@@ -224,6 +237,12 @@ export default {
         this.$bus.$emit(CommonConsts.FULL_SCREEN_CLOSE);
       });
     },
+    getLocalHostMode() {
+      getLocalHostModeFn().then(res => {
+        this.localHostMode = res.data;
+        console.log("当前模式:", this.localHostMode ? "本地" : "云服务器");
+      });
+    },
   },// methods
   watch: {
     // 'searchParamVo.topPath': {handler: function (val, oldVal) {if (val) {this.searchParamVo.topPath = val;this.searchParamVo.topPath = '';}}, deep: true},
@@ -231,6 +250,7 @@ export default {
   mounted() {
     this.getTableCfgOptions();
     this.getGenCfgOptions();
+    this.getLocalHostMode();
   },
 }
 </script>
@@ -238,8 +258,7 @@ export default {
 <style scoped>
 .env-cfg-form-class {
   padding: 20px;
-//border: #cb7c44 2px dotted; border-radius: 4px;
-  text-align: right;
+//border: #cb7c44 2px dotted; border-radius: 4px; text-align: right;
 }
 
 /deep/ .upload-file-list-dialog {

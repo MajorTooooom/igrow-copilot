@@ -20,6 +20,7 @@ import com.zhien.common.core.domain.R;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.lingala.zip4j.ZipFile;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StreamUtils;
@@ -44,6 +45,9 @@ public class OptGenController extends CopilotBaseController {
     private GenCfgService genCfgService;
     @Resource
     private OptService optService;
+
+    @Value("${LOCAL_HOST_MODE:false}")
+    private Boolean localHostMode;
 
     @PostMapping("/optTableCfgOptions")
     public R optTableCfgOptions() {
@@ -117,13 +121,13 @@ public class OptGenController extends CopilotBaseController {
     public void downloadZip(@RequestParam(value = "missionId", required = true) String missionId, HttpServletResponse response) {
         // 生成 ZIP 文件路径
         File baseDir = FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".tmp");
+        FileUtil.mkdir(baseDir);
         File zipFile = FileUtil.file(baseDir, missionId, missionId + ".zip");
 
         // 确保 ZIP 文件已经生成
         ZipFile zip = new ZipFile(zipFile);
         zip.addFolder(FileUtil.file(baseDir, missionId, CommonConstants.NZMB_RESULT));
         zip.addFolder(FileUtil.file(baseDir, missionId, CommonConstants.UPLOAD_RESULT));
-        boolean validZipFile = zip.isValidZipFile();
 
         // 设置 HTTP 响应头
         response.setContentType("application/zip");
@@ -136,6 +140,11 @@ public class OptGenController extends CopilotBaseController {
         } catch (IOException e) {
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error while sending ZIP file");
         }
+    }
+
+    @GetMapping("/getLocalHostMode")
+    public R getLocalHostMode() {
+        return R.data(localHostMode);
     }
 
     public String getMissionId() {

@@ -1,0 +1,24 @@
+version: "3"
+services:
+  springboot:
+    image: com/dororo/future/igrowcopilot/springboot:1.0.0
+    container_name: com_dororo_future_igrowcopilot_springboot
+    environment:
+      TZ: Asia/Shanghai
+      PARAMS: '--server.port=8080
+               --LOGBACK_LOG_CHARSET=UTF-8
+               '
+    volumes:
+      - "./logs/:/.logs/"
+      - "./attachments/:/attachments/"
+    ports:
+      - "${EXPORT_PORT_SPRING_BOOT}:8080"
+    networks:
+      com_dororo_future_igrowcopilot_subnet:
+        ipv4_address: ${IPV4_ADDRESS_SPRING_BOOT}
+networks:
+  com_dororo_future_igrowcopilot_subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${SUBNET}

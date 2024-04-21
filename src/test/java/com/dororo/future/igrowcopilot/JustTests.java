@@ -12,13 +12,9 @@ public class JustTests {
     @Test
     public void test() {
         Snowflake snowflake = IdUtil.getSnowflake(1, 1);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             long id = snowflake.nextId();
             System.out.println(StrUtil.format("id: {}", id));
         }
-        
-        
-        
-        
     }
 }

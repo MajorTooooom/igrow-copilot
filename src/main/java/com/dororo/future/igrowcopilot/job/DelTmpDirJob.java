@@ -22,6 +22,7 @@ public class DelTmpDirJob {
     // @Scheduled(cron = "1/3 * * * * ?")// test
     public void delTmpDir() {
         File tmpTop = FileUtil.file(SystemUtil.getUserInfo().getCurrentDir(), "attachments", ".tmp");
+        FileUtil.mkdir(tmpTop);
         List<File> ls = Arrays.stream(FileUtil.ls(FileUtil.getAbsolutePath(tmpTop))).filter(s -> FileUtil.isDirectory(s)).collect(Collectors.toList());
         if (ls.size() == 0) {
             return;

@@ -40,3 +40,10 @@ rebel.xml
 /attachments/igrow-copilot.db
 !/attachments/igrow-copilot.zip
 attachments/.tmp
+
+src/main/resources/static
+
+attachments/.dockercomposeproduction/build_image_springboot/igrow-copilot.jar
+attachments/.dockercomposeproduction/attachments/igrow-copilot.db
+/attachments/.dockercomposeproduction/attachments/.template
+!attachments/.dockercomposeproduction/attachments/.template/.gitkeep
