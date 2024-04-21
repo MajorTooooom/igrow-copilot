@@ -26,18 +26,23 @@ public class PackageAfterTests {
         File templateFrom = FileUtil.file(currentDir, "attachments", ".template");
         File templateTo = FileUtil.file(currentDir, "attachments", ".docker", "attachments", ".template");
         FileUtil.copyContent(templateFrom, templateTo, true);
+        // 拷贝JAR包
+        File jarFile = FileUtil.file(currentDir, "target", "igrow-copilot.jar");
+        Assert.isTrue(FileUtil.exist(jarFile) && FileUtil.isFile(jarFile), "JAR包不存在");
+        File jarDist = FileUtil.file(currentDir, "attachments", ".docker", "build_image_springboot", "igrow-copilot.jar");
+        FileUtil.copy(jarFile, jarDist, true);
         quitLog();
     }
 
     private static void enterLog() {
-        Console.error(StrUtil.fill("", '=', 100, true));
-        Console.log("开始执行打包后的工作");
-        Console.error(StrUtil.fill("", '=', 100, true));
+        System.out.println("====================================================================================================");
+        System.out.println("开始执行打包后的工作");
+        System.out.flush(); // 强制刷新缓冲
     }
 
     private static void quitLog() {
-        Console.error(StrUtil.fill("", '=', 100, true));
-        Console.log("打包后的工作执行完毕");
-        Console.error(StrUtil.fill("", '=', 100, true));
+        System.out.println("打包后的工作执行完毕");
+        System.out.println("====================================================================================================");
+        System.out.flush(); // 强制刷新缓冲
     }
 }

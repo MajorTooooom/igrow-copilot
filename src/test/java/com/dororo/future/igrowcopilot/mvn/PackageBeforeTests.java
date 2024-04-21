@@ -23,8 +23,9 @@ public class PackageBeforeTests {
         // 查询`index.html`文件的时间是否超过10分钟,如果是则发出警告
         if (DateUtil.between(FileUtil.lastModifiedTime(FileUtil.file(dist, "index.html")), new Date(), DateUnit.MINUTE, false) > 10) {
             for (int i = 0; i < 10; i++) {
-                Console.error("前端工程下dist目录下的index.html文件最后修改时间超过10分钟,请决定是否需要重新执行`npm run build`命令");
+                System.err.println("前端工程下dist目录下的index.html文件最后修改时间超过10分钟,请决定是否需要重新执行`npm run build`命令");
             }
+            System.out.flush(); // 强制刷新缓冲
         }
         // 静态资源目录
         File staticDir = FileUtil.file(currentDir, "src", "main", "resources", "static");
@@ -40,14 +41,14 @@ public class PackageBeforeTests {
     }
 
     private static void enterLog() {
-        Console.error(StrUtil.fill("", '=', 100, true));
-        Console.log("开始执行打包前的准备工作");
-        Console.error(StrUtil.fill("", '=', 100, true));
+        System.out.println("====================================================================================================");
+        System.out.println("开始执行打包前的准备工作");
+        System.out.flush(); // 强制刷新缓冲
     }
 
     private static void quitLog() {
-        Console.error(StrUtil.fill("", '=', 100, true));
-        Console.log("打包前的准备工作执行完毕");
-        Console.error(StrUtil.fill("", '=', 100, true));
+        System.out.println("打包前的准备工作执行完毕");
+        System.out.println("====================================================================================================");
+        System.out.flush(); // 强制刷新缓冲
     }
 }
