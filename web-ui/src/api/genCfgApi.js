@@ -8,6 +8,14 @@ export function addGenCfgFn(data) {
     });
 }
 
+export function batchDeleteActionFn(data) {
+    return request({
+        url: '/genCfg/delete',
+        method: 'post',
+        data
+    });
+}
+
 export function updateGenCfgFn(data) {
     return request({
         url: '/genCfg/update',
@@ -39,7 +47,7 @@ export function genCfgRowStyleFn({row, rowIndex}) {
 }
 
 export function genCfgCellStyleFn({row, column, rowIndex, columnIndex}) {
-    if (['a', 'columnComment'].includes(column.property)) {
+    if (['a', 'genCfgName'].includes(column.property)) {
         return {textAlign: 'left'};
     }
     if (['id', 'userId', 'cfgName', 'extName', 'userName', 'password', 'createTime', 'updateTime'].includes(column.property)) {

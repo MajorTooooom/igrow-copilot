@@ -1,5 +1,9 @@
 package com.dororo.future.igrowcopilot.mapper;
+
+import java.util.Collection;
+
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 import com.dororo.future.igrowcopilot.domain.TableCfg;
@@ -24,4 +28,6 @@ public interface TableCfgMapper {
     List<TableCfg> findByAll(TableCfg tableCfg);
 
     List<TableCfg> pageFindByAll(TableCfg tableCfg);
+
+    int deleteByIdIn(@Param("idCollection") Collection<Integer> idCollection);
 }

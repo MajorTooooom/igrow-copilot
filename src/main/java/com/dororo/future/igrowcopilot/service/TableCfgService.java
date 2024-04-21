@@ -1,5 +1,7 @@
 package com.dororo.future.igrowcopilot.service;
 
+import java.util.List;
+
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Console;
@@ -122,6 +124,10 @@ public class TableCfgService {
     @CachePut(cacheNames = CacheConstants.TABLE_CFG_OPTIONS, key = "#cacheKey", unless = "#result == null")
     public R tableCfgOptionsCachePut(ConnCfg connCfg, String cacheKey) {
         return cacheThisVo.tableCfgOptions(connCfg);
+    }
+
+    public void batchDelete(List<Integer> ids) {
+        tableCfgMapper.deleteByIdIn(ids);
     }
 
     @SneakyThrows
@@ -261,4 +267,10 @@ public class TableCfgService {
             }
         }
     }
+
+    public int deleteByIdIn(Collection<Integer> idCollection) {
+        return tableCfgMapper.deleteByIdIn(idCollection);
+    }
+
+
 }

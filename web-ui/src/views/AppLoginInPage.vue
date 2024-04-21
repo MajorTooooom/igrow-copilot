@@ -16,6 +16,15 @@
         </div>
       </el-form-item>
     </el-form>
+    <div class="author-info-zone">
+      <p>
+        <span style="color:#d99f2e;">© 2024 </span>
+        <span style="color:#020202;">dororo. </span>
+        <span style="color:#001285;">All </span>
+        <span style="color:#234611;">rights </span>
+        <span style="color:#855600;">reserved. </span>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -46,22 +55,38 @@ export default {
       signUpFn(this.credentials).then(response => {
         console.log(response);
       });
-    }
-  }
+    },
+    handleKeyDown(event) {
+      if (event.key === 'Enter') {
+        console.log('Enter键被按下');
+        this.login();
+      }
+    },
+  },// methods
+  mounted() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  },// mounted
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  },// beforeDestroy
 };
 </script>
 
 <style scoped>
 .login-container {
-  height: calc(100vh - 16px); /* 减去大约的额外高度 */
-  width: calc(100vw - 10px); /* 控制宽度以防横向滚动 */
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0px;
+  font-family: 'Rubik Mono One', sans-serif;
+  background: linear-gradient(to right, #00857d, #f50771);
+  /* Flexbox for centering */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5;
-  overflow: hidden; /* 强制隐藏所有滚动条 */
-  /* 添加线性渐变背景 */
-  background: linear-gradient(to right, #cb7c44, #130a2d);
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
 }
 
 .login-form {
@@ -93,6 +118,13 @@ button {
 }
 
 button:hover {
-  background-color: #d99f2e;
+  background-color: #00857d;
+}
+
+.author-info-zone {
+  font-family: 'Rubik Mono One', sans-serif;
+  position: fixed;
+  right: 10px;
+  bottom: -3px;
 }
 </style>

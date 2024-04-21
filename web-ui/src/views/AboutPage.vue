@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <h1>ABOUT PAGE</h1>
-    <p>This is the about page.</p>
+  <div class="template-body">
+    <h1>身后亦须留心丶</h1>
   </div>
 </template>
 
@@ -12,5 +11,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.template-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 30px;
+  color: #cb7c44;
+  background: linear-gradient(to right, #f50771, #00857d);
+//background: beige;
+}
 </style>

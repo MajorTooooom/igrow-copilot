@@ -50,16 +50,24 @@ export function updateTableCfgFn(data) {
     });
 }
 
+export function deleteActionFn(data) {
+    return request({
+        url: '/tableCfg/delete',
+        method: 'post',
+        data
+    });
+}
+
 // -----------------------------------------------------------------------------------------------------------------
 export function tableCfgRowStyleFn({row, rowIndex}) {
     return {backgroundColor: (rowIndex % 2 === 0 ? '#f0f9eb' : '#b7a476'), color: 'black'};
 }
 
 export function tableCfgCellStyleFn({row, column, rowIndex, columnIndex}) {
-    if (['a', 'columnComment'].includes(column.property)) {
+    if (['a', 'columnComment', 'tableCfgName'].includes(column.property)) {
         return {textAlign: 'left'};
     }
-    if (['id', 'userId', 'cfgName', 'extName', 'userName', 'password', 'createTime', 'updateTime'].includes(column.property)) {
+    if (['id', 'userId', 'extName', 'userName', 'password', 'createTime', 'updateTime'].includes(column.property)) {
         return {textAlign: 'center'};
     }
     return {textAlign: 'center'};

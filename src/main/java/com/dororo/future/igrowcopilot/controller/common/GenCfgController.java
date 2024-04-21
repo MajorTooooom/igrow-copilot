@@ -1,5 +1,6 @@
 package com.dororo.future.igrowcopilot.controller.common;
 
+import cn.hutool.core.lang.Assert;
 import com.dororo.future.igrowcopilot.domain.GenCfg;
 import com.dororo.future.igrowcopilot.dto.GenCfgAddDTO;
 import com.dororo.future.igrowcopilot.service.GenCfgService;
@@ -22,6 +23,13 @@ public class GenCfgController extends CopilotBaseController {
     @PostMapping("/add")
     public R add(@RequestBody @Validated GenCfgAddDTO genCfgAddDTO) {
         genCfgService.add(genCfgAddDTO);
+        return R.ok();
+    }
+
+    @PostMapping("/delete")
+    public R delete(@RequestBody List<Integer> ids) {
+        Assert.notEmpty(ids, "ids不能为空");
+        genCfgService.deleteByIdIn(ids);
         return R.ok();
     }
 

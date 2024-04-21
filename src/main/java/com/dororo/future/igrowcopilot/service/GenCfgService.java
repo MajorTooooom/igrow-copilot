@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.dororo.future.igrowcopilot.domain.GenCfg;
@@ -60,5 +61,9 @@ public class GenCfgService {
         genCfg.setCreateTime(DateUtil.now());
         genCfg.setUpdateTime(DateUtil.now());
         genCfgMapper.insertSelective(genCfg);
+    }
+
+    public int deleteByIdIn(Collection<Integer> idCollection) {
+        return genCfgMapper.deleteByIdIn(idCollection);
     }
 }

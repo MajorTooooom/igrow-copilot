@@ -3,10 +3,13 @@ package com.dororo.future.igrowcopilot.exception;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.zhien.common.core.domain.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,11 +18,13 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.sqlite.SQLiteException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 
 /**
  * 全局异常处理器
@@ -134,6 +139,29 @@ public class GlobalExceptionHandler {
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
+        return R.error(HttpStatus.BAD_REQUEST.value(), message);
+    }
+
+    /**
+     * 提供的JSON字段类型不匹配
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public R handleHttpMessageNotReadable(HttpMessageNotReadableException ex, WebRequest request) {
+        String message = "malformed json input";
+        Throwable cause = ex.getCause();
+        if (cause instanceof InvalidFormatException) {
+            InvalidFormatException ife = (InvalidFormatException) cause;
+            String fieldName = "unknown field";
+            List<JsonMappingException.Reference> path = ife.getPath();
+            if (!path.isEmpty()) {
+                // 获取导致错误的最后一个路径部分
+                fieldName = path.get(path.size() - 1).getFieldName();
+            }
+            String simpleName = ife.getTargetType().getSimpleName();
+            Object value = ife.getValue();
+            message = StrUtil.format("字段 [{}]: 期望类型 [{}] but got [{}]", fieldName, simpleName, value);
+        }
         return R.error(HttpStatus.BAD_REQUEST.value(), message);
     }
 }

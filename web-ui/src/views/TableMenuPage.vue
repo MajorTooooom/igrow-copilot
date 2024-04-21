@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="template-body">
     <el-form size="mini" ref="tableCfgSearchFormVo" :model="tableCfgSearchFormVo" label-width="100px" :inline="true" style="text-align: right;">
       <el-form-item label="ID">
         <el-input v-model="tableCfgSearchFormVo.id"></el-input>
@@ -33,9 +33,10 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="getTableCfgPage">查询</el-button>
+        <el-button type="warning" @click="resetTableCfgForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-button-group>
+    <el-button-group style="margin-left: 1px;">
       <el-button size="mini" type="primary" @click="openConnCfgDialog"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增</el-button>
       <el-button size="mini" type="danger" @click="tableCfgBatchDelete"><i class="fa fa-minus"></i>&nbsp;&nbsp;删除</el-button>
     </el-button-group>
@@ -54,7 +55,7 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="ID" width="60" prop="id" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="用户ID" width="60" prop="userId" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column label="配置名称" width="200" prop="tableCfgName" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column label="配置名称" width="300" prop="tableCfgName" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="数据源地址" prop="connUrl" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="数据源登录名" width="100" prop="connUserName" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="数据源密码" width="100" prop="connPassword" :show-overflow-tooltip="true"></el-table-column>
@@ -229,6 +230,7 @@ import {
   addTableCfgFn,
   getColumnCfgByTableCfgFn,
   updateTableCfgFn,
+  deleteActionFn,
 } from '@/api/tableMenuApi';
 
 export default {
@@ -236,7 +238,9 @@ export default {
   components: {},
   data() {
     return {
-      tableCfgSearchFormVo: {},
+      tableCfgSearchFormVo: {
+        userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID),
+      },
       tableCfgTableVo: {
         tableData: [],
         multipleSelection: [],
@@ -245,6 +249,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         total: 0,
+        orderBy: 'update_time desc',
       },
       connCfgDialogVo: {
         show: false,
@@ -279,6 +284,9 @@ export default {
         this.tableCfgTableVo.tableData = res.rows;
         this.tableCfgPaginationVo.total = res.total;
       });
+    },
+    resetTableCfgForm() {
+      this.tableCfgSearchFormVo = {userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID)};
     },
     tableCfgRowStyle: tableCfgRowStyleFn,
     tableCfgCellStyle: tableCfgCellStyleFn,
@@ -320,6 +328,26 @@ export default {
       ;
     },
     tableCfgBatchDelete() {
+      let ids = this.tableCfgTableVo.multipleSelection.map(item => item.id);
+      if (!(ids && ids.length > 0)) {
+        Message.error('请选择要删除的数据');
+        return false;
+      }
+      // 二次确认
+      MessageBox.confirm('此操作将永久删除选中的数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteAction(ids);
+      }).catch(() => {
+        Message.info('已取消删除');
+      });
+    },
+    deleteAction(ids) {
+      deleteActionFn(ids).then(response => {
+        this.getTableCfgPage();
+      });
     },
     getTableAndColumnFromDs() {
       if (!this.connCfgDialogVo.form.connCfgId) {
@@ -405,6 +433,10 @@ export default {
 </script>
 
 <style scoped>
+.template-body {
+  padding-top: 10px;
+}
+
 /deep/ .conn-cfg-dialog-body {
   border-radius: 8px;
 }

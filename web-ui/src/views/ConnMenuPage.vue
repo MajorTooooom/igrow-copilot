@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-form size="mini" ref="queryVo" :inline="true" :model="queryVo" label-width="100px" style="text-align: right;" class="query-form-clazz">
+  <div class="template-body">
+    <el-form size="mini" ref="queryVoRef" :inline="true" :model="queryVo" label-width="100px" style="text-align: right;" class="query-form-clazz">
       <el-form-item label="ID" style="margin-right: -40px;">
         <el-input v-model="queryVo.id"></el-input>
       </el-form-item>
@@ -18,10 +18,13 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="conditionalPagingQuery">查询</el-button>
+        <el-button type="warning" @click="resetQueryVoForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-button size="mini" type="primary" @click="openAddDialog"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增</el-button>
-    <el-button size="mini" type="danger" @click="batchDelete"><i class="fa fa-minus"></i>&nbsp;&nbsp;删除</el-button>
+    <el-button-group style="margin-left: 2px;">
+      <el-button size="mini" type="primary" @click="openAddDialog"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增</el-button>
+      <el-button size="mini" type="danger" @click="batchDelete"><i class="fa fa-minus"></i>&nbsp;&nbsp;删除</el-button>
+    </el-button-group>
     <el-table
         size="mini"
         :fit="true"
@@ -68,10 +71,10 @@
           <el-input v-model="modelDialogVo.modelVo.userId" disabled></el-input>
         </el-form-item>
         <el-form-item label="配置名称" style="margin-bottom: -5px;">
-          <el-input v-model="modelDialogVo.modelVo.cfgName"></el-input>
+          <el-input v-model="modelDialogVo.modelVo.cfgName" placeholder="限制唯一"></el-input>
         </el-form-item>
         <el-form-item label="URL" style="margin-bottom: -5px;">
-          <el-input v-model="modelDialogVo.modelVo.url"></el-input>
+          <el-input v-model="modelDialogVo.modelVo.url" placeholder="当前仅支持MySQL,例如jdbc:mysql://localhost:3306/information_schema?useUnicode=true"></el-input>
         </el-form-item>
         <el-form-item label="连接用户名" style="margin-bottom: -5px;">
           <el-input v-model="modelDialogVo.modelVo.userName"></el-input>
@@ -110,6 +113,7 @@ export default {
         pageNum: 1,
         pageSize: 20,
         total: 0,
+        orderBy: 'update_time desc',
       },
       modelDialogVo: {
         title: '',
@@ -120,6 +124,9 @@ export default {
     }
   },
   methods: {
+    resetQueryVoForm() {
+      this.queryVo = {userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID)};
+    },
     conditionalPagingQuery() {
       pageFn(this.queryVo, this.pageVo).then(res => {
         this.$set(this.tableVo, 'multipleSelection', []);
@@ -131,10 +138,12 @@ export default {
     getCellStyle: cellStyleFn,
     getHeaderCellStyle: headerCellStyleFn,
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.pageVo.pageSize = val;
+      this.conditionalPagingQuery();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.pageVo.pageNum = val;
+      this.conditionalPagingQuery();
     },
     submitAdd() {
       addFn(this.modelDialogVo.modelVo).then(res => {
@@ -196,4 +205,11 @@ export default {
 </script>
 
 <style scoped>
+.template-body {
+  padding-top: 10px;
+}
+
+.query-form-clazz {
+  margin-bottom: -10px;
+}
 </style>

@@ -2,7 +2,7 @@
   <div>
     <el-form size="mini" ref="genCfgFormVo" :model="genCfgFormVo" label-width="180px" :inline="isInline" :style="{'textAlign':textAlignVal}">
       <el-form-item label="ID" v-if="mode === 'search' || mode === 'update'">
-        <el-input v-model.number="genCfgFormVo.id" type="number"></el-input>
+        <el-input v-model.number="genCfgFormVo.id" :disabled="mode !== 'search'"></el-input>
       </el-form-item>
       <el-form-item label="用户ID">
         <el-input v-model.number="genCfgFormVo.userId" type="number" disabled></el-input>
@@ -86,6 +86,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">{{ buttonLabel }}</el-button>
+        <el-button type="warning" @click="resetGenCfgForm">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -141,8 +142,16 @@ export default {
         mode: this.mode
       };
       this.$emit('form-submit', eventPayload);
-    }
-  }
+    },
+    resetGenCfgForm() {
+      this.genCfgFormVo = {
+        userId: sessionStorage.getItem(CommonConsts.SESSION_USER_ID),
+      };
+    },
+    justSetGenCfgFormVo(genCfgFormVo) {
+      this.genCfgFormVo = genCfgFormVo;
+    },
+  }// methods
 };
 </script>
 

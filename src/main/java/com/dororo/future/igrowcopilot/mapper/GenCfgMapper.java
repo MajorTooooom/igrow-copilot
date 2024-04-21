@@ -1,5 +1,9 @@
 package com.dororo.future.igrowcopilot.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Collection;
+
 import com.dororo.future.igrowcopilot.domain.GenCfg;
 
 import java.util.List;
@@ -25,4 +29,6 @@ public interface GenCfgMapper {
     List<GenCfg> findByAll(GenCfg genCfg);
 
     int getLastInsertId();
+
+    int deleteByIdIn(@Param("idCollection") Collection<Integer> idCollection);
 }

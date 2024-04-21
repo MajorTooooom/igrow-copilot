@@ -4,7 +4,7 @@
       <!--Aside-->
       <el-aside width="180px">
         <div style="height: 50px;text-align: center;">
-          <span style="position: relative;top: 10px;">igrow</span>
+          <span style="position: relative;top: 10px;">IGrow</span>
         </div>
         <el-menu :default-active="activeIndex" class="el-menu-vertical-demo" @select="handleSelect">
           <el-menu-item index="1"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</el-menu-item>
@@ -18,9 +18,10 @@
       <el-container>
         <el-header style="height: 50px;">
           <!--Header-->
+          <Header></Header>
         </el-header>
         <!--Main-->
-        <el-main style="padding: 5px !important;">
+        <el-main style="padding: 0px !important; border: #00857d 1px dotted;border-radius: 8px;">
           <!--<keep-alive><router-view/></keep-alive>-->
           <router-view/>
         </el-main>
@@ -46,9 +47,13 @@
 <script>
 import 'font-awesome/css/font-awesome.min.css';
 import * as CommonConsts from '@/config/CommonConsts';
+import Header from '@/views/Header';
 
 export default {
   name: "AppAfterLoginInPage",
+  components: {
+    Header,
+  },
   data() {
     return {
       activeIndex: '5',
@@ -83,6 +88,16 @@ export default {
         this.pageLoadingVo.close();
       } catch (e) {
         console.error(e);
+      }
+    },
+    handleKeyDown(event) {
+      if (event.ctrlKey && event.key === 's') {
+        event.preventDefault(); // 阻止默认的浏览器行为
+        console.log('Ctrl+S被按下');
+      }
+      if (event.key === 'Enter') {
+        console.log('Enter键被按下');
+        this.login();
       }
     },
   },// methods

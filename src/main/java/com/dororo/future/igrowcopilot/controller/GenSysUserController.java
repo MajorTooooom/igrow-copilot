@@ -1,8 +1,12 @@
 package com.dororo.future.igrowcopilot.controller;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
 import com.dororo.future.igrowcopilot.domain.GenSysUser;
 import com.dororo.future.igrowcopilot.service.GenSysUserService;
 import com.zhien.common.core.domain.R;
+import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +27,16 @@ public class GenSysUserController {
         return R.data(i);
     }
 
+    @SneakyThrows
     @PostMapping("/update")
     public R update(@RequestBody GenSysUser genSysUser) {
+        Assert.notNull(genSysUser.getId(), "id不能为空");
+        genSysUser.setUpdateTime(DateUtil.now());
+        if (StrUtil.isNotBlank(genSysUser.getPassword())) {
+            genSysUser.setPassword(genSysUserService.fixedLengthEncryption(genSysUser.getPassword()));
+        }
         int i = genSysUserService.updateByPrimaryKeySelective(genSysUser);
-        return R.data(i);
+        return R.ok("更新成功");
     }
 
     @PostMapping("/delete")

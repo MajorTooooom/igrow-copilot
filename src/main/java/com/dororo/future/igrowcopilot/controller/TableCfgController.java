@@ -1,5 +1,6 @@
 package com.dororo.future.igrowcopilot.controller;
 
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import com.dororo.future.igrowcopilot.controller.common.CopilotBaseController;
 import com.dororo.future.igrowcopilot.domain.ConnCfg;
@@ -25,6 +26,13 @@ public class TableCfgController extends CopilotBaseController {
     @PostMapping("/add")
     public R addTableCfg(@RequestBody @Validated TableCfgAddDTO tableCfgAddDTO) {
         tableCfgService.addTableCfg(tableCfgAddDTO);
+        return R.ok();
+    }
+
+    @PostMapping("/delete")
+    public R deleteTableCfg(@RequestBody List<Integer> ids) {
+        Assert.notEmpty(ids, "ids不能为空");
+        tableCfgService.batchDelete(ids);
         return R.ok();
     }
 

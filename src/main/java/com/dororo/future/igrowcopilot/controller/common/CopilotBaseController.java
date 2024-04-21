@@ -2,6 +2,9 @@ package com.dororo.future.igrowcopilot.controller.common;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -28,8 +31,17 @@ public class CopilotBaseController {
             HttpServletRequest request = attributes.getRequest();
             Integer pageNum = Optional.ofNullable(request).filter(Objects::nonNull).map(s -> s.getParameter("pageNum")).map(q -> Convert.toInt(q, -1)).filter(h -> h > 0).orElse(1);
             Integer pageSize = Optional.ofNullable(request).filter(Objects::nonNull).map(s -> s.getParameter("pageSize")).map(q -> Convert.toInt(q, -1)).filter(h -> h > 0).orElse(10);
-            // TODO orderBy防止sql注入
-            PageHelper.startPage(pageNum, pageSize);
+            String orderBy = Optional.ofNullable(request).filter(Objects::nonNull).map(s -> s.getParameter("orderBy")).orElse(null);
+            // orderBy防止sql注入,只允许英文大小写、数字、下划线、逗号
+            if (StrUtil.isNotBlank(orderBy)) {
+                Assert.isTrue(ReUtil.isMatch("^[a-zA-Z0-9_, ]*$", orderBy), "orderBy参数不合法");
+                orderBy = StrUtil.trim(orderBy);
+            }
+            if (StrUtil.isNotBlank(orderBy)) {
+                PageHelper.startPage(pageNum, pageSize, orderBy);
+            } else {
+                PageHelper.startPage(pageNum, pageSize);
+            }
         }
     }
 
