@@ -1,6 +1,6 @@
 <template>
   <div class="home-body">
-    <h1>且随疾风前行丶</h1>
+    <h1>工欲善其事</h1>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="template-body">
-    <h1>身后亦须留心丶</h1>
+    <h1>必先利其器</h1>
   </div>
 </template>
 
