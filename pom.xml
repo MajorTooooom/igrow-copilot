@@ -233,16 +233,58 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--使用Maven插件加测试类的方式,确保打JAR包之前,已经将dist目录拷贝到了static目录下-->
+            <!--基于`exec-maven-plugin`插件实现:打JAR包之前,拷贝dist目录文件、生成版本号文件等-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version> <!-- 使用合适的版本 -->
-                <configuration>
-                    <includes>
-                        <include>**/PackageAssistTests</include>
-                    </includes>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>run-before-package</id>
+                        <!-- 在编译阶段运行 -->
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 在什么范围找主类 -->
+                            <classpathScope>test</classpathScope>
+                            <!-- 指定要执行的主类 -->
+                            <mainClass>com.dororo.future.igrowcopilot.mvn.PackageBeforeTests</mainClass>
+                            <arguments>
+                                <!-- 传递参数,支持多个 -->
+                                <argument>arg1</argument>
+                                <argument>arg2</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--基于`exec-maven-plugin`插件实现:打JAR包之后,拷贝JAR包、template模板文件等操作-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>run-custom-tests</id>
+                        <!-- 在打包之后运行 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 自定义测试类 -->
+                            <mainClass>com.dororo.future.igrowcopilot.mvn.PackageAfterTests</mainClass>
+                            <classpathScope>test</classpathScope>
+                            <arguments>
+                                <!-- 传递参数,支持多个 -->
+                                <argument>arg1</argument>
+                                <argument>arg2</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
