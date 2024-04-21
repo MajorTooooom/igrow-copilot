@@ -1,6 +1,6 @@
 version: "3"
 services:
-  springboot:
+  boot:
     image: com/dororo/future/igrowcopilot/springboot:1.0.0
     container_name: com_dororo_future_igrowcopilot_springboot
     environment:
@@ -16,6 +16,22 @@ services:
     networks:
       com_dororo_future_igrowcopilot_subnet:
         ipv4_address: ${IPV4_ADDRESS_SPRING_BOOT}
+  nginx:
+    image: nginx:1.25.1
+    container_name: com_dororo_future_igrowcopilot_nginx
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "${EXPORT_PORT_NGINX}:8088"
+      - "443:443"
+    volumes:
+      - "./data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf"
+      - "./data/nginx/conf.d/:/etc/nginx/conf.d/"
+      - "./data/nginx/logs/:/var/log/nginx/"
+      - "./data/nginx/dist/:/home/nginx/dist"
+    networks:
+      com_dororo_future_igrowcopilot_subnet:
+        ipv4_address: ${IPV4_ADDRESS_NGINX}
 networks:
   com_dororo_future_igrowcopilot_subnet:
     driver: bridge

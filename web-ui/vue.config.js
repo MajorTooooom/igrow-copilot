@@ -10,6 +10,15 @@ module.exports = defineConfig({
     },
     devServer: {
         open: true,
-        proxy: 'http://localhost:8868',
+        proxy: {
+            // detail: https://cli.vuejs.org/config/#devserver-proxy
+            [process.env.VUE_APP_BASE_API]: {
+                target: `http://localhost:8868`,
+                changeOrigin: true,
+                pathRewrite: {
+                    ['^' + process.env.VUE_APP_BASE_API]: ''
+                }
+            }
+        },
     },
 })

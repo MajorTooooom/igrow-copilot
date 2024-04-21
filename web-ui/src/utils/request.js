@@ -9,6 +9,7 @@ import * as CommonConsts from '@/config/CommonConsts';
 
 // 创建axios实例
 const service = axios.create({
+    baseURL: process.env.VUE_APP_BASE_API,
     timeout: 30 * 1000,
     headers: {
         Accept: 'application/json; charset=utf-8',
