@@ -14,7 +14,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <!--通过环境变量`LOGBACK_ROOT_LOGGING_LEVEL`,控制开发阶段使用DEBUG打印信息-->
     <property name="MY_LOG_LEVEL" value="${LOGBACK_ROOT_LOGGING_LEVEL:-INFO}"/>
-    <property name="MY_LOG_CHARSET" value="${LOGBACK_LOG_CHARSET:-GBK}"/>
+    <property name="MY_LOG_CHARSET" value="${LOGBACK_LOG_CHARSET:-UTF-8}"/>
 
     <property name="LOG_HOME" value="./.logs/"/>
     <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%-5level][%logger{50} # %method][%line] %msg%n"/>

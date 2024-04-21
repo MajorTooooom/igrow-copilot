@@ -1,10 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="IgrowCopilotApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <envs>
-      <env name="LOGBACK_LOG_CHARSET" value="UTF-8" />
+      <env name="LOCAL_HOST_MODE" value="TRUE" />
       <env name="LOGBACK_ROOT_LOGGING_LEVEL" value="DEBUG" />
       <env name="TEST_DEV_ING" value="TRUE" />
-      <env name="LOCAL_HOST_MODE" value="TRUE" />
     </envs>
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <module name="igrow-copilot" />
