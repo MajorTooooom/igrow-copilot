@@ -43,7 +43,7 @@ attachments/.tmp
 
 src/main/resources/static
 
-attachments/..docker/build_image_springboot/igrow-copilot.jar
-attachments/..docker/attachments/igrow-copilot.db
-/attachments/..docker/attachments/.template
-!attachments/..docker/attachments/.template/.gitkeep
+attachments/.docker/build_image_springboot/igrow-copilot.jar
+attachments/.docker/attachments/igrow-copilot.db
+/attachments/.docker/attachments/.template
+!attachments/.docker/attachments/.template/.gitkeep

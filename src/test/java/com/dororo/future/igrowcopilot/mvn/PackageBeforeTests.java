@@ -14,9 +14,7 @@ import java.util.Date;
 
 public class PackageBeforeTests {
     public static void main(String[] args) {
-        Console.error(StrUtil.fill("", '=', 100, true));
-        Console.log("开始执行打包前的准备工作");
-        Console.error(StrUtil.fill("", '=', 100, true));
+        enterLog();
         // 当前项目的根目录
         String currentDir = SystemUtil.getUserInfo().getCurrentDir();
         // 前端工程的dist目录
@@ -38,5 +36,18 @@ public class PackageBeforeTests {
         });
         // 目录拷贝
         FileUtil.copyContent(FileUtil.file(dist), FileUtil.file(staticDir), true);
+        quitLog();
+    }
+
+    private static void enterLog() {
+        Console.error(StrUtil.fill("", '=', 100, true));
+        Console.log("开始执行打包前的准备工作");
+        Console.error(StrUtil.fill("", '=', 100, true));
+    }
+
+    private static void quitLog() {
+        Console.error(StrUtil.fill("", '=', 100, true));
+        Console.log("打包前的准备工作执行完毕");
+        Console.error(StrUtil.fill("", '=', 100, true));
     }
 }
