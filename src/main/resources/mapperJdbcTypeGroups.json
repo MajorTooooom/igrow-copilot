@@ -1,0 +1,59 @@
+{
+  "jdbcTypeMapping": {
+    "name": "defaultMySqlJdbcTypeMapping",
+    "elementList": [
+      {
+        "columnType": "varchar(\\(\\d+\\))?",
+        "jdbcType": "VARCHAR"
+      },
+      {
+        "columnType": "char(\\(\\d+\\))?",
+        "jdbcType": "CHAR"
+      },
+      {
+        "columnType": "text",
+        "jdbcType": "LONGVARCHAR"
+      },
+      {
+        "columnType": "decimal(\\(\\d+\\))?",
+        "jdbcType": "DECIMAL"
+      },
+      {
+        "columnType": "decimal(\\(\\d+,\\d+\\))?",
+        "jdbcType": "DECIMAL"
+      },
+      {
+        "columnType": "integer",
+        "jdbcType": "INTEGER"
+      },
+      {
+        "columnType": "int(\\(\\d+\\))?",
+        "jdbcType": "INTEGER"
+      },
+      {
+        "columnType": "int4",
+        "jdbcType": "INTEGER"
+      },
+      {
+        "columnType": "int8",
+        "jdbcType": "BIGINT"
+      },
+      {
+        "columnType": "bigint(\\(\\d+\\))?",
+        "jdbcType": "BIGINT"
+      },
+      {
+        "columnType": "datetime",
+        "jdbcType": "TIMESTAMP"
+      },
+      {
+        "columnType": "timestamp",
+        "jdbcType": "TIMESTAMP"
+      },
+      {
+        "columnType": "tinyint(\\(\\d+\\))?",
+        "jdbcType": "TINYINT"
+      }
+    ]
+  }
+}

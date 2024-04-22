@@ -4,23 +4,20 @@ import java.util.List;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
 import cn.hutool.json.JSONObject;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.dororo.future.igrowcopilot.config.DruidDataSourceManager;
-import com.dororo.future.igrowcopilot.config.TypeMapperGroupsManager;
+import com.dororo.future.igrowcopilot.config.MapperJavaTypeGroupsManager;
+import com.dororo.future.igrowcopilot.config.MapperJdbcTypeGroupsManager;
 import com.dororo.future.igrowcopilot.constant.CacheConstants;
 import com.dororo.future.igrowcopilot.domain.ColumnCfg;
 import com.dororo.future.igrowcopilot.domain.ConnCfg;
 import com.dororo.future.igrowcopilot.domain.TableCfg;
 import com.dororo.future.igrowcopilot.domain.common.ColumnMetadata;
-import com.dororo.future.igrowcopilot.dto.DbColumnSelectRequestDTO;
-import com.dororo.future.igrowcopilot.dto.TableCfgAddDTO;
-import com.dororo.future.igrowcopilot.dto.TableCfgUpdateDTO;
-import com.dororo.future.igrowcopilot.dto.TypeMapperGroupsDTO;
+import com.dororo.future.igrowcopilot.dto.*;
 import com.dororo.future.igrowcopilot.mapper.ColumnCfgMapper;
 import com.dororo.future.igrowcopilot.mapper.TableCfgMapper;
 import com.zhien.common.core.domain.R;
@@ -140,7 +137,7 @@ public class TableCfgService {
         List<ColumnCfg> list = query.stream().map(e -> ColumnMetadata.specialConvert(e, ColumnCfg.class)).collect(Collectors.toList());
         // 按照数据库顺序排序
         List<ColumnCfg> sortedList = list.stream().sorted(Comparator.comparing(ColumnMetadata::getOrdinalPosition)).collect(Collectors.toList());
-        // 填充扩展信息
+        // TODO 填充扩展信息
         for (ColumnCfg columnCfg : sortedList) {
             // 字段名转小写驼峰
             columnCfg.setJavaName(StrUtil.lowerFirst(StrUtil.toCamelCase(columnCfg.getColumnName())));
@@ -151,6 +148,8 @@ public class TableCfgService {
             // Swagger注释 & validation注释 预设
             columnCfg.setColumnSwaggerComment(Optional.ofNullable(columnCfg.getColumnComment()).filter(StrUtil::isNotBlank).orElse(columnCfg.getJavaName()));
             columnCfg.setColumnValidationComment(Optional.ofNullable(columnCfg.getColumnComment()).filter(StrUtil::isNotBlank).orElse(columnCfg.getJavaName()));
+            // jdbcType预设
+            columnCfg.setJdbcType(getRecommendedJdbcType(columnCfg.getColumnType()));
         }
 
         // 同时通过表名计算实体类名
@@ -181,11 +180,23 @@ public class TableCfgService {
         return res;
     }
 
-    private String getRecommendedJavaType(String columnType) {
-        TypeMapperGroupsDTO groupsDTO = TypeMapperGroupsManager.getOrDefault();
+    private String getRecommendedJdbcType(String columnType) {
+        MapperJdbcTypeGroups mapperJdbcTypeGroups = MapperJdbcTypeGroupsManager.getOrDefault();
         // 当前攒支持默认配置规则
-        List<TypeMapperGroupsDTO.DefaultDTO.ElementListDTO> mappings = groupsDTO.getDefaultX().getElementList();
-        for (TypeMapperGroupsDTO.DefaultDTO.ElementListDTO mapping : mappings) {
+        List<MapperJdbcTypeGroups.JdbcTypeMappingDTO.ElementListDTO> mappings = mapperJdbcTypeGroups.getJdbcTypeMapping().getElementList();
+        for (MapperJdbcTypeGroups.JdbcTypeMappingDTO.ElementListDTO mapping : mappings) {
+            if (Pattern.matches(mapping.getColumnType(), columnType)) {
+                return mapping.getJdbcType();
+            }
+        }
+        return null;
+    }
+
+    private String getRecommendedJavaType(String columnType) {
+        MapperJavaTypeGroups groupsDTO = MapperJavaTypeGroupsManager.getOrDefault();
+        // 当前仅支持默认配置规则
+        List<MapperJavaTypeGroups.DefaultDTO.ElementListDTO> mappings = groupsDTO.getDefaultX().getElementList();
+        for (MapperJavaTypeGroups.DefaultDTO.ElementListDTO mapping : mappings) {
             if (Pattern.matches(mapping.getColumnType(), columnType)) {
                 return mapping.getJavaType();
             }

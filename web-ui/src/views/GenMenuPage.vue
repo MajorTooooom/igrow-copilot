@@ -22,7 +22,7 @@
         width="60%">
       <div>
         <GenCfgForm ref="GenCfgFormAddRef" mode="add" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='add'" :textAlignVal="'left'"></GenCfgForm>
-        <GenCfgForm mode="update" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='update'" :textAlignVal="'left'"></GenCfgForm>
+        <GenCfgForm ref="GenCfgFormUpdateRef" mode="update" :initialData="genCfgFormVo" @form-submit="handleFormDataSubmit" v-if="genCfgAddUpdateDialogVo.mode==='update'" :textAlignVal="'left'"></GenCfgForm>
       </div>
       <span slot="footer" class="dialog-footer">
     <el-button @click="genCfgAddUpdateDialogVo.show = false">取 消</el-button>

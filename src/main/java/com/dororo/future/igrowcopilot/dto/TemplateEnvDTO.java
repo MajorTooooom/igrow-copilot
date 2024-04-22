@@ -39,4 +39,6 @@ public class TemplateEnvDTO {
     private String author;
     private String dateTime;
     private List<String> javaTypes;
+    //
+    private String mchpFormatDate;
 }

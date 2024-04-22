@@ -61,9 +61,9 @@
       <el-table-column label="数据源密码" width="100" prop="connPassword" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="库名" width="100" prop="tableSchema" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="表名" width="100" prop="tableName" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column label="实体类名" width="100" prop="domainName" :show-overflow-tooltip="true"></el-table-column>
+      <!--      <el-table-column label="实体类名" width="100" prop="domainName" :show-overflow-tooltip="true"></el-table-column>-->
       <el-table-column label="实体类中文名" width="100" prop="domainZnName" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column label="创建时间" width="100" prop="createTime" :show-overflow-tooltip="true"></el-table-column>
+      <!--      <el-table-column label="创建时间" width="100" prop="createTime" :show-overflow-tooltip="true"></el-table-column>-->
       <el-table-column label="更新时间" width="100" prop="updateTime" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">
@@ -181,9 +181,14 @@
               <el-input size="mini" v-model="scope.row.javaName" placeholder="请输入Java字段名"></el-input>
             </template>
           </el-table-column>
-          <el-table-column label="Java字段类型" width="100" prop="javaType" :show-overflow-tooltip="true">
+          <el-table-column label="Java字段类型" width="150" prop="javaType" :show-overflow-tooltip="true">
             <template slot-scope="scope">
               <el-input size="mini" v-model="scope.row.javaType" placeholder="请输入Java字段类型"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column label="JDBC类型" width="200" prop="jdbcType" :show-overflow-tooltip="true">
+            <template slot-scope="scope">
+              <el-input size="mini" v-model="scope.row.jdbcType" placeholder="请输入jdbcType"></el-input>
             </template>
           </el-table-column>
           <el-table-column label="注释" prop="columnComment" :show-overflow-tooltip="true">

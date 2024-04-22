@@ -30,4 +30,6 @@ public class ColumnCfg extends ColumnMetadata {
     private String columnValidationComment;
     // 是否需要反引号包裹,当字段名为数据库关键字时需要反引号包裹
     private Boolean requireBackQuote;
+    // JDBC类型
+    private String jdbcType;
 }

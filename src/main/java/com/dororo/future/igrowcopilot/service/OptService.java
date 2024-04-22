@@ -25,8 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -69,7 +71,13 @@ public class OptService {
                 })
                 .collect(Collectors.toSet()));
         templateEnv.setJavaTypes(javaTypes);
-        //
+
+        // 模拟MCHP的时间类型字段
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        // Mon Apr 01 15:23:29 CST 2024
+        String formattedDate = sdf.format(DateUtil.date());
+        templateEnv.setMchpFormatDate(formattedDate);
+
         return templateEnv;
     }
 

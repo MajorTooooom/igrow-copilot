@@ -1,9 +1,9 @@
 package com.dororo.future.igrowcopilot.mapper;
 
-import java.util.List;
-
 import com.dororo.future.igrowcopilot.domain.ColumnCfg;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface ColumnCfgMapper {

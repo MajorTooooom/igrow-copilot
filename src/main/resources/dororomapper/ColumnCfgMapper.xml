@@ -35,6 +35,7 @@
         <result column="java_type_class_name" jdbcType="LONGVARCHAR" property="javaTypeClassName"/>
         <result column="column_swagger_comment" jdbcType="LONGVARCHAR" property="columnSwaggerComment"/>
         <result column="column_validation_comment" jdbcType="LONGVARCHAR" property="columnValidationComment"/>
+        <result column="jdbc_type" jdbcType="LONGVARCHAR" property="jdbcType"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -68,7 +69,8 @@
         java_type,
         java_type_class_name,
         column_swagger_comment,
-        column_validation_comment
+        column_validation_comment,
+        jdbc_type
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
@@ -96,7 +98,7 @@
                                   "privileges", is_generated, generation_expression,
                                   srs_id, java_name, java_type,
                                   java_type_class_name, column_swagger_comment,
-                                  column_validation_comment)
+                                  column_validation_comment, jdbc_type)
         values (#{userId,jdbcType=INTEGER}, #{tableCfgId,jdbcType=INTEGER}, #{tableSchema,jdbcType=LONGVARCHAR},
                 #{tableName,jdbcType=LONGVARCHAR}, #{ordinalPosition,jdbcType=LONGVARCHAR}, #{columnName,jdbcType=LONGVARCHAR},
                 #{columnType,jdbcType=LONGVARCHAR}, #{columnComment,jdbcType=LONGVARCHAR}, #{dataType,jdbcType=LONGVARCHAR},
@@ -108,7 +110,7 @@
                 #{privileges,jdbcType=LONGVARCHAR}, #{isGenerated,jdbcType=LONGVARCHAR}, #{generationExpression,jdbcType=LONGVARCHAR},
                 #{srsId,jdbcType=INTEGER}, #{javaName,jdbcType=LONGVARCHAR}, #{javaType,jdbcType=LONGVARCHAR},
                 #{javaTypeClassName,jdbcType=LONGVARCHAR}, #{columnSwaggerComment,jdbcType=LONGVARCHAR},
-                #{columnValidationComment,jdbcType=LONGVARCHAR})
+                #{columnValidationComment,jdbcType=LONGVARCHAR}, #{jdbcType,jdbcType=LONGVARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dororo.future.igrowcopilot.domain.ColumnCfg" useGeneratedKeys="false">
         <!--@mbg.generated-->
@@ -204,6 +206,9 @@
             <if test="columnValidationComment != null">
                 column_validation_comment,
             </if>
+            <if test="jdbcType != null">
+                jdbc_type,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -295,6 +300,9 @@
             </if>
             <if test="columnValidationComment != null">
                 #{columnValidationComment,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="jdbcType != null">
+                #{jdbcType,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
@@ -392,6 +400,9 @@
             <if test="columnValidationComment != null">
                 column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR},
             </if>
+            <if test="jdbcType != null">
+                jdbc_type = #{jdbcType,jdbcType=LONGVARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -427,7 +438,8 @@
             java_type                 = #{javaType,jdbcType=LONGVARCHAR},
             java_type_class_name      = #{javaTypeClassName,jdbcType=LONGVARCHAR},
             column_swagger_comment    = #{columnSwaggerComment,jdbcType=LONGVARCHAR},
-            column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR}
+            column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR},
+            jdbc_type                 = #{jdbcType,jdbcType=LONGVARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <select id="findOneByAll" resultMap="BaseResultMap">
@@ -528,6 +540,9 @@
             </if>
             <if test="columnValidationComment != null">
                 and column_validation_comment = #{columnValidationComment,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="jdbcType != null">
+                and jdbc_type = #{jdbcType,jdbcType=LONGVARCHAR}
             </if>
         </where>
     </select>

@@ -62,7 +62,7 @@ public class ConnCfgController extends CopilotBaseController {
 
     @PostMapping("/connCfgOptions")
     public R elSelectOptions() {
-        List<ConnCfg> connCfgs = connCfgService.findByAll(ConnCfg.builder().userId(getCurrentUserIdWithException()).build());
+        List<ConnCfg> connCfgs = connCfgService.findByAll(ConnCfg.builder().userId(getCurrentUserIdWithException()).isDeleted(YesNoEnum.NO.value + "").build());
         List<JSONObject> options = connCfgs.stream().map(cfg -> {
             JSONObject option = JSONUtil.createObj()
                     .putOpt("value", cfg.getId())

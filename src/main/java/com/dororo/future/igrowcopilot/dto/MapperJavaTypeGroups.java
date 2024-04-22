@@ -7,7 +7,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-public class TypeMapperGroupsDTO {
+public class MapperJavaTypeGroups {
     private DefaultDTO defaultX;
 
     @Data
