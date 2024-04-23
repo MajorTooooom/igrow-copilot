@@ -57,10 +57,8 @@ public class ${domainName}Service {
     }
 
     public List<${domainName}ExportDTO> conditionalQueryPage(${domainName}PageDTO pageDTO) {
-        // TODO 通常需要改写
-        List<${domainName}> select = ${domainName?uncap_first}Mapper.select(Convert.convert(${domainName}.class, pageDTO));
-        List<${domainName}ExportDTO> collect = select.stream().map(s -> Convert.convert(${domainName}ExportDTO.class, s)).collect(Collectors.toList());
-        return collect;
+        List<${domainName}ExportDTO> list = ${domainName?uncap_first}Mapper.findAllByPageCondition(pageDTO);
+        return list;
     }
 
     public List<${domainName}ExportDTO> conditionalQueryAllPage(${domainName}PageDTO pageDTO) {

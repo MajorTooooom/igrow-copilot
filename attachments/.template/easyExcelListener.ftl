@@ -74,7 +74,9 @@ public class ${domainName}ImportListener implements ReadListener<${domainName}Im
         try {
             // (1)如果前三个空格都是空,则认为是空行(EasyExcel不认为是空行,所以需要自己判断)
             // TODO 需要改写为自己的业务逻辑
-            if (StrUtil.isBlank(data.getName()) && StrUtil.isBlank(data.getName()) && data.getName() == null) {
+            // TODO 需要改写为自己的业务逻辑
+            // TODO 需要改写为自己的业务逻辑
+            if (data == null) {
                 handleThisRow = false;
             } else {
                 // 恢复上一行可能设置的不处理标记

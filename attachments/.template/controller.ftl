@@ -44,35 +44,35 @@ public class ${domainName}Controller extends BaseController {
     private ${domainName}Service ${domainName?uncap_first}Service;
 
     @PostMapping("/add")
-    @ApiOperation(value = "新增", notes = "新增")
+    @ApiOperation(value = "add", notes = "新增")
     public R add(@RequestBody @Validated ${domainName}AddDTO addDTO) {
         ${domainName?uncap_first}Service.add(addDTO);
         return R.ok();
     }
 
-    @GetMapping("/delete/{id}")
-    @ApiOperation(value = "删除", notes = "删除")
+    @PostMapping("/delete/{id}")
+    @ApiOperation(value = "delete", notes = "删除")
     public R delete(@PathVariable(value = "id") Integer id) {
         ${domainName?uncap_first}Service.deleteByPrimaryKey(id);
         return R.ok();
     }
 
     @PostMapping("/update")
-    @ApiOperation(value = "更新", notes = "更新")
+    @ApiOperation(value = "update", notes = "更新")
     public R update(@RequestBody @Validated ${domainName}UpdateDTO updateDTO) {
         ${domainName?uncap_first}Service.update(updateDTO);
         return R.ok();
     }
 
-    @GetMapping("/get/{id}")
-    @ApiOperation(value = "查询", notes = "查询")
+    @PostMapping("/get/{id}")
+    @ApiOperation(value = "get", notes = "查询")
     public R get(@PathVariable(value = "id") Integer id) {
         ${domainName} ${domainName?uncap_first} = ${domainName?uncap_first}Service.selectByPrimaryKey(id);
         return R.data(${domainName?uncap_first});
     }
 
     @PostMapping("/page")
-    @ApiOperation(value = "条件分页", notes = "条件分页")
+    @ApiOperation(value = "page", notes = "条件分页查询")
     public R page(@RequestBody @Validated ${domainName}PageDTO pageDTO) {
         // pageDTO.setIsDelete(YesNoEnum.NO.value + "");
         startPage();
@@ -84,7 +84,7 @@ public class ${domainName}Controller extends BaseController {
      * 导出失败时反馈JSON
      */
     @PostMapping("/export")
-    @ApiOperation(value = "导出", notes = "导出")
+    @ApiOperation(value = "export", notes = "导出")
     public void export(@RequestBody @Validated ${domainName}PageDTO pageDTO, HttpServletResponse response) throws IOException {
         // pageDTO.setIsDelete(YesNoEnum.NO.value + "");
         List<${domainName}ExportDTO> list = ${domainName?uncap_first}Service.conditionalQueryAllPage(pageDTO);
@@ -105,7 +105,7 @@ public class ${domainName}Controller extends BaseController {
     }
 
     @PostMapping("/import")
-    @ApiOperation(value = "导入", notes = "导入")
+    @ApiOperation(value = "import", notes = "导入")
     public R importExcel(@RequestParam("file") MultipartFile[] files) throws Exception {
         return R.data(${domainName?uncap_first}Service.importExcel(files));
     }
